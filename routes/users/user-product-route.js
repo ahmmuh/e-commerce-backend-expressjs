@@ -3,7 +3,7 @@ import {
   countUserproducts,
   createUserProduct,
   getUserProducts,
-} from "../../controllers/user-productController.js";
+} from "../../controllers/users/user-productController.js";
 
 const router = express.Router();
 

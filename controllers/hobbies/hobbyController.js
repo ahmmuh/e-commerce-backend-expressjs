@@ -41,7 +41,7 @@ export const updateHobby = async (req, res) => {
   try {
     const hobby = await Hobby.findByIdAndUpdate(req.params.id, req.body);
     if (!hobby) throw Error("Hobby Not found");
-    res.status(200).json({ success: true });
+    res.status(200).send("Sno updated");
   } catch (error) {
     res.status(400).json({ success: false });
   }
@@ -51,7 +51,7 @@ export const deleteHobby = async (req, res) => {
   try {
     const hobby = await Hobby.findByIdAndDelete(req.params.id);
     if (!hobby) throw Error("No Hobby found");
-    res.json({ success: true });
+    res.status(200).send("hobby deleted");
   } catch (error) {
     res.json({ msg: error });
   }

@@ -29,7 +29,7 @@ export const createCloth = async (req, res) => {
     });
     newCloth = await newCloth.save();
     console.log("The new Cloth is here ", newCloth);
-    res.status(201).json({ message: "One Cloth has been created" });
+    res.status(201).send({ message: "One Cloth has been created" });
   } catch (error) {
     res.send(error);
   }
@@ -39,7 +39,7 @@ export const updateCloth = async (req, res) => {
   try {
     const cloth = await Cloth.findByIdAndUpdate(req.params.id, req.body);
     if (!cloth) throw Error("Cloth Not found");
-    res.status(200).json({ success: true });
+    res.status(200).send({ message: "One Cloth has been updated" });
   } catch (error) {
     res.status(400).json({ success: false });
   }
@@ -49,7 +49,7 @@ export const deleteCloth = async (req, res) => {
   try {
     const cloth = await Cloth.findByIdAndDelete(req.params.id);
     if (!cloth) throw Error("No Cloth found");
-    res.json({ success: true });
+    res.status(200).send("deleted");
   } catch (error) {
     res.json({ msg: error });
   }

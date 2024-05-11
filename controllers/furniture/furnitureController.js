@@ -19,19 +19,18 @@ export const getFurniture = async (req, res) => {
 };
 
 export const createFurniture = async (req, res) => {
-  const { name, description, price, owner, location } = req.body;
+  const { name, description, price, location } = req.body;
   try {
     const newFurniture = new Furniture({
       name,
       description,
       images,
       price,
-      owner,
       location,
     });
     newFurniture = await newFurniture.save();
     console.log("The new Furniture is here ", newFurniture);
-    res.status(201).json({ message: "One Furniture has been created" });
+    res.status(201).send("Funiture created");
   } catch (error) {
     res.send(error);
   }

@@ -19,14 +19,13 @@ export const getElectronic = async (req, res) => {
 };
 
 export const createElectronic = async (req, res) => {
-  const { name, description, images, price, owner, location } = req.body;
+  const { name, description, images, price, location } = req.body;
   try {
     const newElectronic = new Electronic({
       name,
       description,
       images,
       price,
-      owner,
       location,
     });
     newElectronic = await newElectronic.save();
@@ -44,7 +43,7 @@ export const updateElectronic = async (req, res) => {
       req.body,
     );
     if (!electronic) throw Error("Electronic Not found");
-    res.status(200).json({ success: true });
+    res.status(200).send("Electronic updated");
   } catch (error) {
     res.status(400).json({ success: false });
   }

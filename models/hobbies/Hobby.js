@@ -9,17 +9,17 @@ const HobbySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: [{ type: Array, required: true }],
+  images: [{ type: String, required: true }],
   price: {
     type: Number,
     required: true,
     min: 0,
   },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+  // owner: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
   location: {
     lat: Number,
     lng: Number,

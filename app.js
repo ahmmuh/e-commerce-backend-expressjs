@@ -4,7 +4,10 @@ import vehicleRouter from "./routes/vehicles/vehicle-route.js";
 import categoryRoute from "./routes/categories/category-route.js";
 import hobbyRoute from "./routes/hobbies/hobby-route.js";
 import houseRoute from "./routes/houses/house-route.js";
+import clothRoute from "./routes/clothes/cloth-route.js";
+import electronicRoute from "./routes/electronics/electronic-route.js";
 import userProductRoute from "./routes/users/user-product-route.js";
+import furnitureRouet from "./routes/furniture/furniture-route.js";
 import { getConnection } from "./controllers/users/dbConnection/dbConnection.js";
 
 import bodyParser from "body-parser";
@@ -20,6 +23,9 @@ app.use("/api", vehicleRouter);
 app.use("/api", categoryRoute);
 app.use("/api", userProductRoute);
 app.use("/api", houseRoute);
+app.use("/api", furnitureRouet);
+app.use("/api", electronicRoute);
+app.use("/api", clothRoute);
 
 app.listen(PORT, () => {
   getConnection();

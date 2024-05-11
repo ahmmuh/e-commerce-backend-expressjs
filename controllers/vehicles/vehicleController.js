@@ -46,7 +46,7 @@ export const updateVehicle = async (req, res) => {
   try {
     const vehicle = await Vehicle.findByIdAndUpdate(req.params.id, req.body);
     if (!vehicle) throw Error("vehicle Not found");
-    res.status(200).json({ success: true });
+    res.status(200).send("updated vehicle");
   } catch (error) {
     res.status(400).json({ success: false });
   }
@@ -56,7 +56,7 @@ export const deleteVehicle = async (req, res) => {
   try {
     const vehicle = await Vehicle.findByIdAndDelete(req.params.id);
     if (!vehicle) throw Error("No vehicle found");
-    res.json({ success: true });
+    res.status(200).send("Deleted Vehicle");
   } catch (error) {
     res.json({ msg: error });
   }
