@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { type } from "os";
 
 const FurnitureSchema = new mongoose.Schema({
   name: {
@@ -7,7 +6,7 @@ const FurnitureSchema = new mongoose.Schema({
     required: true,
   },
   description: {
-    type: Text,
+    type: String,
     required: true,
   },
   images: [{ type: Array, required: true }],

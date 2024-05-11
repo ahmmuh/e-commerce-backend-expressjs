@@ -1,7 +1,4 @@
-import { truncate, truncateSync } from "fs";
-
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Define a general property model
 const HousePropertySchema = new mongoose.Schema({
   //type of the house, bostadsrätt eller hyresrätt
@@ -15,7 +12,7 @@ const HousePropertySchema = new mongoose.Schema({
   },
   squareMeters: {
     type: String,
-    required: truncateSync,
+    required: true,
   },
   price: {
     type: Number,
@@ -35,11 +32,11 @@ const HousePropertySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  address: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Address",
-    required: true,
-  },
+  // address: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Address",
+  //   // required: true,
+  // },
   location: {
     lat: Number,
     lng: Number,

@@ -6,15 +6,15 @@ const AddressSchema = new mongoose.Schema({
   },
   streetName: {
     type: String,
-    required: true,
+    // required: true,
   },
   city: {
     type: String,
-    required: true,
+    // required: true,
   },
   state: {
     type: String,
-    required: true,
+    // required: true,
   },
   postalCode: {
     type: String,

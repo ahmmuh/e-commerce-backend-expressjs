@@ -6,7 +6,7 @@ const ClothSchema = new mongoose.Schema({
     required: true,
   },
   description: {
-    type: Text,
+    type: String,
     required: true,
   },
   images: [{ type: Array, required: true }],

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { type } from "os";
 
 const ElectronicSchema = new mongoose.Schema({
   name: {
@@ -7,7 +6,7 @@ const ElectronicSchema = new mongoose.Schema({
     required: true,
   },
   description: {
-    type: Text,
+    type: String,
     required: true,
   },
   images: [{ type: Array, required: true }],

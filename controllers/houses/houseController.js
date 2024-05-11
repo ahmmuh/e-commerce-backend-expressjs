@@ -60,7 +60,7 @@ export const updateHouse = async (req, res) => {
   try {
     const house = await House.findByIdAndUpdate(req.params.id, req.body);
     if (!house) throw Error("House Not found");
-    res.status(200).json({ success: true });
+    res.status(200).send();
   } catch (error) {
     res.status(400).json({ success: false });
   }
@@ -70,7 +70,7 @@ export const deleteHouse = async (req, res) => {
   try {
     const house = await House.findByIdAndDelete(req.params.id);
     if (!house) throw Error("No House found");
-    res.json({ success: true });
+    res.status(200).send("Deleted");
   } catch (error) {
     res.json({ msg: error });
   }

@@ -1,5 +1,6 @@
-import mongoos from "mongoose";
-const Schema = mongoos.Schema;
+import mongoose from "mongoose";
+// import { Vehicle } from "../Vehicles/Vehicle";
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   id: String,
@@ -12,7 +13,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  cars: [{ type: String, ref: "Car"}],
+  // hobbies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hobby" }],
+  // clothes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cloth" }],
+  // electronics: [{ type: mongoose.Schema.Types.ObjectId, ref: "Electronic" }],
+  // Furnitures: [{ type: mongoose.Schema.Types.ObjectId, ref: "Furniture" }],
+  // houses: [{ type: mongoose.Schema.Types.ObjectId, ref: "House" }],
+  // vehicles: [Vehicle],
   email: {
     type: String,
     required: true,
@@ -36,4 +42,4 @@ const userSchema = new Schema({
   },
 });
 
-export const User = mongoos.model("user", userSchema);
+export const User = mongoose.model("user", userSchema);

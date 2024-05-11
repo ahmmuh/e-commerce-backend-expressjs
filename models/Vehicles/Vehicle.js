@@ -15,10 +15,6 @@ const vehicleSchema = new Schema({
     ref: "Category",
     required: true,
   },
-  // owner: {
-  //   type: String,
-  //   ref: "User",
-  // },
 
   color: {
     type: String,

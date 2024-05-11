@@ -2,7 +2,11 @@ import express from "express";
 import userRoute from "./routes/users/route.users.js";
 import vehicleRouter from "./routes/vehicles/vehicle-route.js";
 import categoryRoute from "./routes/categories/category-route.js";
+import hobbyRoute from "./routes/hobbies/hobby-route.js";
+import houseRoute from "./routes/houses/house-route.js";
+import userProductRoute from "./routes/users/user-product-route.js";
 import { getConnection } from "./controllers/users/dbConnection/dbConnection.js";
+
 import bodyParser from "body-parser";
 const PORT = 3000;
 const app = express();
@@ -11,9 +15,11 @@ app.use(express.json());
 
 //routes
 app.use("/api", userRoute);
+app.use("/api", hobbyRoute);
 app.use("/api", vehicleRouter);
-
 app.use("/api", categoryRoute);
+app.use("/api", userProductRoute);
+app.use("/api", houseRoute);
 
 app.listen(PORT, () => {
   getConnection();
