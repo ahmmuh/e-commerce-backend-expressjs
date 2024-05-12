@@ -1,5 +1,5 @@
+import { Category } from "../../category_subcategory/model/Category.js";
 import { Vehicle } from "../../models/Vehicles/Vehicle.js";
-import { Category } from "../../models/Vehicles/Category.js";
 import { User } from "../../models/users/user.js";
 
 export const getVehicles = async (req, res) => {
@@ -22,8 +22,9 @@ export const getVehicle = async (req, res) => {
 
 export const createVehicle = async (req, res) => {
   const foundedCategory = await Category.findById(req.body.category);
-  const ownerUser = await User.findById(req.body.user);
   if (!foundedCategory) return res.status(404).send("Not valid category");
+
+  const ownerUser = await User.findById(req.body.user);
   if (!ownerUser) return res.status(404).send("User not found");
   const {
     manufacturer,

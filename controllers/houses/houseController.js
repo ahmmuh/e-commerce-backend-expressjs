@@ -1,3 +1,4 @@
+import { Category } from "../../category_subcategory/model/Category.js";
 import { House } from "../../models/houses/HouseModel.js";
 import { User } from "../../models/users/user.js";
 
@@ -33,8 +34,12 @@ export const createHouse = async (req, res) => {
     location,
     parking,
     busConnection,
+    category,
     user,
   } = req.body;
+  const foundedCategory = await Category.findById(req.body.category);
+  if (!foundedCategory) return res.status(404).send("Not valid category");
+
   const ownerUser = await User.findById(req.body.user);
   if (!ownerUser) return res.status(404).send("User not found");
 
@@ -52,6 +57,7 @@ export const createHouse = async (req, res) => {
       location,
       parking,
       busConnection,
+      category,
       user,
     });
     newHouse = await newHouse.save();

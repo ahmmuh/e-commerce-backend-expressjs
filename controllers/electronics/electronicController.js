@@ -1,3 +1,4 @@
+import { Category } from "../../category_subcategory/model/Category.js";
 import { Electronic } from "../../models/electronics/Electronic.js";
 import { User } from "../../models/users/user.js";
 
@@ -20,9 +21,12 @@ export const getElectronic = async (req, res) => {
 };
 
 export const createElectronic = async (req, res) => {
-  const { name, description, images, price, location, user } = req.body;
-  const ownerUser = await User.findById(req.body.user);
+  const { name, description, images, price, location, user, category } =
+    req.body;
+  const foundedCategory = await Category.findById(req.body.category);
+  if (!foundedCategory) return res.status(404).send("Not valid category");
 
+  const ownerUser = await User.findById(req.body.user);
   if (!ownerUser) return res.status(404).send("User not found");
   try {
     const newElectronic = new Electronic({
@@ -32,6 +36,7 @@ export const createElectronic = async (req, res) => {
       price,
       location,
       user,
+      category,
     });
     newElectronic = await newElectronic.save();
     console.log("The new Electronic is here ", newElectronic);

@@ -1,3 +1,4 @@
+import { Category } from "../../category_subcategory/model/Category.js";
 import { Furniture } from "../../models/furniture/Furniture.js";
 import { User } from "../../models/users/user.js";
 
@@ -20,7 +21,11 @@ export const getFurniture = async (req, res) => {
 };
 
 export const createFurniture = async (req, res) => {
-  const { name, description, price, location, user } = req.body;
+  const { name, description, price, location, user, category } = req.body;
+
+  const foundedCategory = await Category.findById(req.body.category);
+  if (!foundedCategory) return res.status(404).send("Not valid category");
+
   const ownerUser = await User.findById(req.body.user);
   if (!ownerUser) return res.status(404).send("User not found");
   try {
@@ -31,6 +36,7 @@ export const createFurniture = async (req, res) => {
       price,
       location,
       user,
+      category,
     });
     newFurniture = await newFurniture.save();
     console.log("The new Furniture is here ", newFurniture);
