@@ -1,4 +1,5 @@
 import { Cloth } from "../../models/clothes/Cloth.js";
+import { User } from "../../models/users/user.js";
 
 export const getClothes = async (req, res) => {
   try {
@@ -19,13 +20,16 @@ export const getCloth = async (req, res) => {
 };
 
 export const createCloth = async (req, res) => {
-  const { name, description, images, price } = req.body;
+  const { name, description, images, price, user } = req.body;
+  const ownerUser = await User.findById(req.body.user);
+  if (!ownerUser) return res.status(404).send("User Not found");
   try {
     const newCloth = new Cloth({
       name,
       description,
       images,
       price,
+      user,
     });
     newCloth = await newCloth.save();
     console.log("The new Cloth is here ", newCloth);

@@ -41,7 +41,7 @@ export const createUser = async (req, res) => {
       birthDay,
     });
     const user = await newUser.save();
-    res.status(201).json({ user: user, message: "One user has been created" });
+    res.status(201).send({ user: user, message: "One user has been created" });
   } catch (error) {
     res.send(error);
   }

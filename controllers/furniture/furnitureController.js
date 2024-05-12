@@ -1,4 +1,5 @@
 import { Furniture } from "../../models/furniture/Furniture.js";
+import { User } from "../../models/users/user.js";
 
 export const getFurnitures = async (req, res) => {
   try {
@@ -19,7 +20,9 @@ export const getFurniture = async (req, res) => {
 };
 
 export const createFurniture = async (req, res) => {
-  const { name, description, price, location } = req.body;
+  const { name, description, price, location, user } = req.body;
+  const ownerUser = await User.findById(req.body.user);
+  if (!ownerUser) return res.status(404).send("User not found");
   try {
     const newFurniture = new Furniture({
       name,
@@ -27,6 +30,7 @@ export const createFurniture = async (req, res) => {
       images,
       price,
       location,
+      user,
     });
     newFurniture = await newFurniture.save();
     console.log("The new Furniture is here ", newFurniture);

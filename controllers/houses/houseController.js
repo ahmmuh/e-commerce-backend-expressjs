@@ -1,4 +1,5 @@
 import { House } from "../../models/houses/HouseModel.js";
+import { User } from "../../models/users/user.js";
 
 export const getHouses = async (req, res) => {
   try {
@@ -32,7 +33,11 @@ export const createHouse = async (req, res) => {
     location,
     parking,
     busConnection,
+    user,
   } = req.body;
+  const ownerUser = await User.findById(req.body.user);
+  if (!ownerUser) return res.status(404).send("User not found");
+
   try {
     const newHouse = new House({
       houseType,
@@ -47,6 +52,7 @@ export const createHouse = async (req, res) => {
       location,
       parking,
       busConnection,
+      user,
     });
     newHouse = await newHouse.save();
     console.log("The new House is here ", newHouse);

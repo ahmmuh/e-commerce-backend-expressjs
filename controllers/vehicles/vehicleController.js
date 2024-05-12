@@ -1,5 +1,6 @@
 import { Vehicle } from "../../models/Vehicles/Vehicle.js";
 import { Category } from "../../models/Vehicles/Category.js";
+import { User } from "../../models/users/user.js";
 
 export const getVehicles = async (req, res) => {
   try {
@@ -20,23 +21,38 @@ export const getVehicle = async (req, res) => {
 };
 
 export const createVehicle = async (req, res) => {
-  const category = await Category.findById(req.body.category);
-  if (!category) return res.status(404).send("Not valid category");
+  const foundedCategory = await Category.findById(req.body.category);
+  const ownerUser = await User.findById(req.body.user);
+  if (!foundedCategory) return res.status(404).send("Not valid category");
+  if (!ownerUser) return res.status(404).send("User not found");
+  const {
+    manufacturer,
+    model,
+    category,
+    color,
+    year,
+    mileage,
+    fuelType,
+    horsepower,
+    price,
+    user,
+  } = req.body;
   try {
     const newVehicle = new Vehicle({
-      manufacturer: req.body.manufacturer,
-      model: req.body.model,
-      category: req.body.category,
-      color: req.body.color,
-      year: req.body.year,
-      mileage: req.body.mileage,
-      fuelType: req.body.fuelType,
-      horsepower: req.body.horsepower,
-      price: req.body.price,
+      manufacturer,
+      model,
+      category,
+      color,
+      year,
+      mileage,
+      fuelType,
+      horsepower,
+      price,
+      user,
     });
     newVehicle = await newVehicle.save();
     console.log("The new Vehicle is here ", newVehicle);
-    res.status(201).json({ message: "One Vehicle has been created" });
+    res.status(201).send({ message: "One Vehicle has been created" });
   } catch (error) {
     res.send(error);
   }

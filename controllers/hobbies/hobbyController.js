@@ -1,4 +1,5 @@
 import { Hobby } from "../../models/hobbies/Hobby.js";
+import { User } from "../../models/users/user.js";
 
 export const getHobbies = async (req, res) => {
   try {
@@ -19,14 +20,17 @@ export const getHobby = async (req, res) => {
 };
 
 export const createHobby = async (req, res) => {
-  const { name, description, images, price, owner, location } = req.body;
+  const { name, description, images, price, user, location } = req.body;
+  const ownerUser = await User.findById(req.body.user);
+  if (!ownerUser) return res.status(404).send("User not found");
+
   try {
     const newHobby = new Hobby({
       name,
       description,
       images,
       price,
-      owner,
+      user,
       location,
     });
     newHobby = await newHobby.save();

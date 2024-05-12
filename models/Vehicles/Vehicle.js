@@ -16,6 +16,12 @@ const vehicleSchema = new Schema({
     required: true,
   },
 
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
   color: {
     type: String,
     required: true,

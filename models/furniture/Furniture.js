@@ -15,7 +15,12 @@ const FurnitureSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
   location: {
     lat: Number,
     lng: Number,
