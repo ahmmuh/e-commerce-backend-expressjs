@@ -16,70 +16,56 @@ const ElectronicSchema = new mongoose.Schema({
     min: 0,
   },
 
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
-    required: true,
-  },
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
+  // category: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Category",
+  //   required: true,
+  // },
 
   images: [{ type: Array, required: true }],
   batteryHealth: {
-    type: [
-      {
-        value: String,
-        label: String,
-        required: Boolean,
-      },
-    ],
+    type: String,
+    label: String,
+    required: Boolean,
   },
   screenSize: {
-    type: [
-      {
-        value: String,
-        label: String,
-        required: Boolean,
-      },
-    ],
+    type: String,
+    label: String,
+    required: Boolean,
   },
   colors: {
-    type: [
-      {
-        value: String,
-        label: String,
-        required: Boolean,
-      },
-    ],
+    type: String,
+    label: String,
+    required: Boolean,
   },
   condition: {
-    type: [
-      {
-        value: String,
-        label: String,
-        required: Boolean,
-      },
-    ],
+    type: String,
+    label: String,
+    required: Boolean,
   },
   receipt: {
-    type: [
-      {
-        value: String,
-        label: String,
-        required: Boolean,
-      },
-    ],
+    type: String,
+    label: String,
+    required: Boolean,
   },
   ownershipDuration: {
-    type: [{ value: String, label: String }],
+    type: String,
+    label: String,
+    required: Boolean,
   },
 
   location: {
     lat: Number,
     lng: Number,
+  },
+  file: {
+    type: String,
+    required: Boolean,
   },
 });
 

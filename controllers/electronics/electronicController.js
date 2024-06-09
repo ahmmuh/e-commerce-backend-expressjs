@@ -21,24 +21,37 @@ export const getElectronic = async (req, res) => {
 };
 
 export const createElectronic = async (req, res) => {
-  const { name, description, images, price, location, user, category } =
-    req.body;
-  const foundedCategory = await Category.findById(req.body.category);
-  if (!foundedCategory) return res.status(404).send("Not valid category");
+  const {
+    name,
+    description,
+    price,
+    // user,
+    // category,
+    batteryHealth,
+    screenSize,
+    // images,
+    colors,
+    condition,
+    receipt,
+    ownershipDuration,
+    location,
+    file,
+  } = req.body;
+  // const foundedCategory = await Category.findById(req.body.category);
+  // if (!foundedCategory) return res.status(404).send("Not valid category");
 
-  const ownerUser = await User.findById(req.body.user);
-  if (!ownerUser) return res.status(404).send("User not found");
+  // const ownerUser = await User.findById(req.body.user);
+  // if (!ownerUser) return res.status(404).send("User not found");
   try {
     const newElectronic = new Electronic({
       name,
       description,
       price,
-      user,
-      category,
-      name,
+      // user,
+      // category,
       batteryHealth,
       screenSize,
-      images,
+      // images,
       colors,
       condition,
       receipt,
