@@ -32,11 +32,19 @@ export const createElectronic = async (req, res) => {
     const newElectronic = new Electronic({
       name,
       description,
-      images,
       price,
-      location,
       user,
       category,
+      name,
+      batteryHealth,
+      screenSize,
+      images,
+      colors,
+      condition,
+      receipt,
+      ownershipDuration,
+      location,
+      file,
     });
     newElectronic = await newElectronic.save();
     console.log("The new Electronic is here ", newElectronic);

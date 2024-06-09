@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import userRoute from "./routes/users/route.users.js";
 import vehicleRouter from "./routes/vehicles/vehicle-route.js";
 import categoryRoute from "./routes/categories/category-route.js";
@@ -10,11 +11,15 @@ import furnitureRouet from "./routes/furniture/furniture-route.js";
 import { getConnection } from "./controllers/users/dbConnection/dbConnection.js";
 
 import bodyParser from "body-parser";
-const PORT = 3000;
+const PORT = 5000;
 const app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
+const corsOptions = {
+  origin: "http://localhost:3000/",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 //routes
 app.use("/api", userRoute);
 app.use("/api", hobbyRoute);
