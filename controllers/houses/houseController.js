@@ -31,11 +31,11 @@ export const createHouse = async (req, res) => {
     water,
     toilets,
     address,
-    location,
+    // location,
     parking,
     busConnection,
-    category,
-    user,
+    // category,
+    // user,
   } = req.body;
   const foundedCategory = await Category.findById(req.body.category);
   if (!foundedCategory) return res.status(404).send("Not valid category");
@@ -54,11 +54,9 @@ export const createHouse = async (req, res) => {
       water,
       toilets,
       address,
-      location,
+      // location,
       parking,
       busConnection,
-      category,
-      user,
     });
     newHouse = await newHouse.save();
     console.log("The new House is here ", newHouse);

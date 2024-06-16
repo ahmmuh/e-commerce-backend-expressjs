@@ -8,7 +8,7 @@ import houseRoute from "./routes/houses/house-route.js";
 import clothRoute from "./routes/clothes/cloth-route.js";
 import electronicRoute from "./routes/electronics/electronic-route.js";
 import furnitureRouet from "./routes/furniture/furniture-route.js";
-import { getConnection } from "./controllers/users/dbConnection/dbConnection.js";
+import { getConnection } from "./database/dbConnection/dbConnection.js";
 import bookRoute from "./routes/hobbies/book-route.js";
 import boatRoute from "./routes/hobbies/boat-route.js";
 

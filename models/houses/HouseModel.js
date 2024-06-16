@@ -32,11 +32,11 @@ const HousePropertySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
 
   // address: {
   //   type: mongoose.Schema.Types.ObjectId,
@@ -57,6 +57,6 @@ const HousePropertySchema = new mongoose.Schema({
 
 // Define specific models for different types of properties
 export const House = mongoose.model("House", HousePropertySchema);
-export const Apartment = mongoose.model("Apartment", HousePropertySchema);
-export const Villa = mongoose.model("Villa", HousePropertySchema);
-export const Cottage = mongoose.model("Cottage", HousePropertySchema);
+// export const Apartment = mongoose.model("Apartment", HousePropertySchema);
+// export const Villa = mongoose.model("Villa", HousePropertySchema);
+// export const Cottage = mongoose.model("Cottage", HousePropertySchema);
