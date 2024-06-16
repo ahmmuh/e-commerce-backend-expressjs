@@ -63,9 +63,10 @@ const ElectronicSchema = new mongoose.Schema({
     lat: Number,
     lng: Number,
   },
-  file: {
-    type: String,
-    required: Boolean,
+
+  thumbnailImage: {
+    data: Buffer,
+    contentType: String,
   },
 });
 

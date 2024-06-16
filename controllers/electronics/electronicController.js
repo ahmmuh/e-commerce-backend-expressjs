@@ -1,7 +1,7 @@
 import { Category } from "../../category_subcategory/model/Category.js";
 import { Electronic } from "../../models/electronics/Electronic.js";
 import { User } from "../../models/users/user.js";
-
+import fs from "fs";
 export const getElectronics = async (req, res) => {
   try {
     const electronics = await Electronic.find();
@@ -35,7 +35,7 @@ export const createElectronic = async (req, res) => {
     receipt,
     ownershipDuration,
     location,
-    file,
+    thumbnailImage,
   } = req.body;
   // const foundedCategory = await Category.findById(req.body.category);
   // if (!foundedCategory) return res.status(404).send("Not valid category");
@@ -57,7 +57,10 @@ export const createElectronic = async (req, res) => {
       receipt,
       ownershipDuration,
       location,
-      file,
+      thumbnailImage: {
+        data: fs.readFileSync(thumbnailImage),
+        contentType: "image/png",
+      },
     });
     newElectronic = await newElectronic.save();
     console.log("The new Electronic is here ", newElectronic);
