@@ -9,10 +9,10 @@ import {
 
 const router = express.Router();
 
-router.get("/Boats", getBoats);
-router.get("/Boats/:id", getBoat);
-router.post("/Boats", createBoat);
-router.put("/Boats/:id", updateBoat);
-router.delete("/Boats/:id", deleteBoat);
+router.get("/boats", getBoats);
+router.get("/boats/:id", getBoat);
+router.post("/boats", createBoat);
+router.put("/boats/:id", updateBoat);
+router.delete("/boats/:id", deleteBoat);
 
 export default router;

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { buffer } from "stream/consumers";
 
 const ClothSchema = new mongoose.Schema({
   name: {
@@ -15,11 +16,15 @@ const ClothSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  thumnail: {
+    type: buffer,
     required: true,
   },
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
 });
 
 export const Cloth = mongoose.model("Cloth", ClothSchema);
