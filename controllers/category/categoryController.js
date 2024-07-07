@@ -18,6 +18,8 @@ export const getCategory = async (req, res) => {
   res.status(400).json({ success: false, message: "Category Not found" });
 };
 
+
+
 export const createCategory = async (req, res) => {
   const { name, icon, color } = req.body;
   try {
@@ -40,6 +42,7 @@ export const updateCategory = async (req, res) => {
   try {
     const category = await Category.findByIdAndUpdate(req.params.id, req.body);
     if (!category) throw Error("category Not found");
+    console.log("Started from controll")
     res.status(200).json({ success: true });
   } catch (error) {
     res.status(400).json({ success: false });
@@ -48,7 +51,8 @@ export const updateCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   try {
-    const category = await Category.findByIdAndDelete(req.params.id);
+    const category =
+      await Category.findByIdAndDelete(req.params.id);
     if (!category) throw Error("No category found");
     res.json({ success: true });
   } catch (error) {

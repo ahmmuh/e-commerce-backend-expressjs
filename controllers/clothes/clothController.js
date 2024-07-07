@@ -1,6 +1,33 @@
 import { Category } from "../../category_subcategory/model/Category.js";
 import { Cloth } from "../../models/clothes/Cloth.js";
 import { User } from "../../models/users/user.js";
+import multer from "multer";
+
+export const createCloth = async (req, res) => {
+  const { name, description, images, price, thumbnail } = req.body;
+
+  // const foundedCategory = await Category.findById(req.body.category);
+  // if (!foundedCategory) return res.status(404).send("Not valid category");
+
+  // const ownerUser = await User.findById(req.body.user);
+  // if (!ownerUser) return res.status(404).send("User Not found");
+  try {
+    const newCloth = new Cloth({
+      name,
+      description,
+      images,
+      price,
+      // user,
+      // category,
+      thumbnail,
+    });
+     newCloth = await newCloth.save();
+    console.log("The new Cloth is here ", newCloth);
+    res.status(201).send({ message: "One Cloth has been created" });
+  } catch (error) {
+    res.send(error);
+  }
+};
 
 export const getClothes = async (req, res) => {
   try {
@@ -18,31 +45,6 @@ export const getCloth = async (req, res) => {
     res.status(200).send(cloth);
   }
   res.status(400).json({ success: false, message: "Cloth Not found" });
-};
-
-export const createCloth = async (req, res) => {
-  const { name, description, images, price, user, category } = req.body;
-
-  const foundedCategory = await Category.findById(req.body.category);
-  if (!foundedCategory) return res.status(404).send("Not valid category");
-
-  const ownerUser = await User.findById(req.body.user);
-  if (!ownerUser) return res.status(404).send("User Not found");
-  try {
-    const newCloth = new Cloth({
-      name,
-      description,
-      images,
-      price,
-      user,
-      category,
-    });
-    newCloth = await newCloth.save();
-    console.log("The new Cloth is here ", newCloth);
-    res.status(201).send({ message: "One Cloth has been created" });
-  } catch (error) {
-    res.send(error);
-  }
 };
 
 export const updateCloth = async (req, res) => {

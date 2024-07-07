@@ -35,7 +35,7 @@ export const createElectronic = async (req, res) => {
     receipt,
     ownershipDuration,
     location,
-    thumbnailImage,
+    thumbnailImage
   } = req.body;
   // const foundedCategory = await Category.findById(req.body.category);
   // if (!foundedCategory) return res.status(404).send("Not valid category");
@@ -43,6 +43,9 @@ export const createElectronic = async (req, res) => {
   // const ownerUser = await User.findById(req.body.user);
   // if (!ownerUser) return res.status(404).send("User not found");
   try {
+
+    const uploadedImage = req.file;
+  //const createdImage = Date.now()  + '-' + uploadedImage.originalname
     const newElectronic = new Electronic({
       name,
       description,
@@ -57,10 +60,7 @@ export const createElectronic = async (req, res) => {
       receipt,
       ownershipDuration,
       location,
-      thumbnailImage: {
-        data: fs.readFileSync(thumbnailImage),
-        contentType: "image/png",
-      },
+      thumbnailImage
     });
     newElectronic = await newElectronic.save();
     console.log("The new Electronic is here ", newElectronic);
@@ -86,7 +86,7 @@ export const updateElectronic = async (req, res) => {
 export const deleteElectronic = async (req, res) => {
   try {
     const electronic = await Electronic.findByIdAndDelete(req.params.id);
-    if (!electronic) throw Error("No Electronic found");
+    if (!electronic) throw new Error("No Electronic found");
     res.json({ success: true });
   } catch (error) {
     res.json({ msg: error });

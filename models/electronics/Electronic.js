@@ -27,7 +27,7 @@ const ElectronicSchema = new mongoose.Schema({
   //   required: true,
   // },
 
-  images: [{ type: Array, required: true }],
+  //images: [{ type: Array, required: true }],
   batteryHealth: {
     type: String,
     label: String,
@@ -65,8 +65,8 @@ const ElectronicSchema = new mongoose.Schema({
   },
 
   thumbnailImage: {
-    data: Buffer,
-    contentType: String,
+    type: Buffer,
+    required: true,
   },
 });
 

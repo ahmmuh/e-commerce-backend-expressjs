@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { buffer } from "stream/consumers";
 
 const ClothSchema = new mongoose.Schema({
   name: {
@@ -16,8 +15,8 @@ const ClothSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  thumnail: {
-    type: buffer,
+  thumbnail: {
+    type: Buffer,
     required: true,
   },
   // user: {
