@@ -1,5 +1,6 @@
 import { User } from "../../models/users/user.js";
 import bcrypt from "bcrypt";
+import { House } from "../../models/houses/HouseModel.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -65,4 +66,33 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     res.json({ msg: error });
   }
+};
+
+
+
+export const getUsersWithPagination = async (req, res) => {
+  try {
+    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const pageSize = 10; // Antal objekt per sida
+
+    const users = await User.find();
+    const offset = (currentPage - 1) * pageSize;
+    const paginatedUsers = users.slice(offset, offset + pageSize);
+
+    res.status(200).json(paginatedUsers);
+  } catch (e) {
+    res.status(500).json({ message: "Fel med paginated users" });
+  }
+};
+export const searchUsersByName = async (req,res) =>{
+  try {
+    const {name} = req.query;
+    const usersSearchedByNames = await User.find({name});
+    if (!usersSearchedByNames) throw new Error("Name finns inte")
+    res.status(200).json(usersSearchedByNames)
+  }
+  catch (error) {
+    res.status(500).json({message:"Something went wrong"})
+  }
+
 };

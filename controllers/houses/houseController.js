@@ -85,3 +85,61 @@ export const deleteHouse = async (req, res) => {
     res.json({ msg: error });
   }
 };
+
+
+// extra functions
+
+export const getHousesWithPagination = async (req, res) => {
+  try {
+    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const pageSize = 10; // Antal objekt per sida
+
+    const houses = await House.find();
+    const offset = (currentPage - 1) * pageSize;
+    const paginatedHouses = houses.slice(offset, offset + pageSize);
+
+    res.status(200).json(paginatedHouses);
+  } catch (e) {
+    res.status(500).json({ message: "Fel med paginated houses" });
+  }
+};
+export const searchHousesByName = async (req,res) =>{
+  try {
+    const {name} = req.query;
+    const housesSearchedByNames = await House.find({name});
+    if (!housesSearchedByNames) throw new Error("Name finns inte")
+    res.status(200).json(housesSearchedByNames)
+  }
+  catch (error) {
+    res.status(500).json({message:"Something went wrong"})
+  }
+
+};
+
+
+//high price
+export const searchHousesByHighPrice = async (req,res) =>{
+  try{
+    const houses = await  House.find();
+    const highPriceHouses = houses.filter((house) => house.price >= 200);
+    console.log("Low prices: ", highPriceHouses)
+    res.status(200).json(highPriceHouses)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med high Price på houses"})
+  }
+}
+
+
+//search by low price
+export const searchHousesByLowPrice = async (req,res) =>{
+  try{
+    const houses = await  House.find();
+    const lowPriceHouses = houses.filter((house) => house.price < 200);
+    console.log("Low prices: ", lowPriceHouses)
+    res.status(200).json(lowPriceHouses)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med low price"})
+  }
+}

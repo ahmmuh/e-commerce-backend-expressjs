@@ -78,3 +78,63 @@ export const deleteVehicle = async (req, res) => {
     res.json({ msg: error });
   }
 };
+
+
+
+
+// extra functions
+
+export const getVehiclesWithPagination = async (req, res) => {
+  try {
+    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const pageSize = 10; // Antal objekt per sida
+
+    const vehicles = await Vehicle.find();
+    const offset = (currentPage - 1) * pageSize;
+    const paginatedVehicles = vehicles.slice(offset, offset + pageSize);
+
+    res.status(200).json(paginatedVehicles);
+  } catch (e) {
+    res.status(500).json({ message: "Fel med paginated vehicles" });
+  }
+};
+export const searchVehiclesByName = async (req,res) =>{
+  try {
+    const {name} = req.query;
+    const vehiclesSearchedByNames = await Vehicle.find({name});
+    if (!vehiclesSearchedByNames) throw new Error("Name finns inte")
+    res.status(200).json(vehiclesSearchedByNames)
+  }
+  catch (error) {
+    res.status(500).json({message:"Something went wrong"})
+  }
+
+};
+
+
+//high price
+export const searchVehiclesByHighPrice = async (req,res) =>{
+  try{
+    const vehicles = await  Vehicle.find();
+    const highPriceVehicles = vehicles.filter((vehicle) => vehicle.price >= 200);
+    console.log("Low prices: ", highPriceVehicles)
+    res.status(200).json(highPriceVehicles)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med high Price på vehicles"})
+  }
+}
+
+
+//search by low price
+export const searchVehiclesByLowPrice = async (req,res) =>{
+  try{
+    const vehicles = await  Vehicle.find();
+    const lowPriceVehicles = vehicles.filter((vehicle) => vehicle.price < 200);
+    console.log("Low prices: ", lowPriceVehicles)
+    res.status(200).json(lowPriceVehicles)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med low price"})
+  }
+}

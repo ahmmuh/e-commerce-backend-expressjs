@@ -65,3 +65,61 @@ export const deleteBoat = async (req, res) => {
     res.json({ msg: error });
   }
 };
+
+
+// extra functions
+
+export const getBoatsWithPagination = async (req, res) => {
+  try {
+    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const pageSize = 10; // Antal objekt per sida
+
+    const boats = await Boat.find();
+    const offset = (currentPage - 1) * pageSize;
+    const paginatedBoats = boats.slice(offset, offset + pageSize);
+
+    res.status(200).json(paginatedBoats);
+  } catch (e) {
+    res.status(500).json({ message: "Fel med paginated Boats" });
+  }
+};
+export const searchBoatsByName = async (req,res) =>{
+  try {
+    const {name} = req.query;
+    const boatsSearchedByNames = await Boat.find({name});
+    if (!boatsSearchedByNames) throw new Error("Name finns inte")
+    res.status(200).json(boatsSearchedByNames)
+  }
+  catch (error) {
+    res.status(500).json({message:"Something went wrong"})
+  }
+
+};
+
+
+//high price
+export const searchBoatsByHighPrice = async (req,res) =>{
+  try{
+    const boats = await  Boat.find();
+    const highPriceBoats = boats.filter((boat) => boat.price >= 200);
+    console.log("Low prices: ", highPriceBoats)
+    res.status(200).json(highPriceBoats)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med high Price på boats"})
+  }
+}
+
+
+//search by low price
+export const searchBoatsByLowPrice = async (req,res) =>{
+  try{
+    const boats = await  Boat.find();
+    const lowPriceBoats = boats.filter((boat) => boat.price < 200);
+    console.log("Low prices: ", lowPriceBoats)
+    res.status(200).json(lowPriceBoats)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med low price"})
+  }
+}

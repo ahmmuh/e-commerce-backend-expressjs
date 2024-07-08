@@ -67,3 +67,63 @@ export const deleteHobby = async (req, res) => {
     res.json({ msg: error });
   }
 };
+
+
+
+
+// extra functions
+
+export const getHobbiesWithPagination = async (req, res) => {
+  try {
+    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const pageSize = 10; // Antal objekt per sida
+
+    const hobbies = await Hobby.find();
+    const offset = (currentPage - 1) * pageSize;
+    const paginatedHobbies = hobbies.slice(offset, offset + pageSize);
+
+    res.status(200).json(paginatedHobbies);
+  } catch (e) {
+    res.status(500).json({ message: "Fel med paginated hobbies" });
+  }
+};
+export const searchHobbiesByName = async (req,res) =>{
+  try {
+    const {name} = req.query;
+    const hobbiesSearchedByNames = await Hobby.find({name});
+    if (!hobbiesSearchedByNames) throw new Error("Name finns inte")
+    res.status(200).json(hobbiesSearchedByNames)
+  }
+  catch (error) {
+    res.status(500).json({message:"Something went wrong"})
+  }
+
+};
+
+
+//high price
+export const searchHobbiesByHighPrice = async (req,res) =>{
+  try{
+    const hobbies = await  Hobby.find();
+    const highPriceHobbies = hobbies.filter((hobby) => hobby.price >= 200);
+    console.log("Low prices: ", highPriceHobbies)
+    res.status(200).json(highPriceHobbies)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med high Price på hobbies"})
+  }
+}
+
+
+//search by low price
+export const searchHobbiesByLowPrice = async (req,res) =>{
+  try{
+    const hobbies = await  Hobby.find();
+    const lowPriceHobbies = hobbies.filter((hobby) => hobby.price < 200);
+    console.log("Low prices: ", lowPriceHobbies)
+    res.status(200).json(lowPriceHobbies)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med low price"})
+  }
+}

@@ -2,6 +2,8 @@ import { Category } from "../../category_subcategory/model/Category.js";
 import { Cloth } from "../../models/clothes/Cloth.js";
 import { User } from "../../models/users/user.js";
 import multer from "multer";
+import { Electronic } from "../../models/electronics/Electronic.js";
+import { Error } from "mongoose";
 
 export const createCloth = async (req, res) => {
   const { name, description, images, price, thumbnail } = req.body;
@@ -66,3 +68,59 @@ export const deleteCloth = async (req, res) => {
     res.json({ msg: error });
   }
 };
+
+
+export const getClothesWithPagination = async (req, res) => {
+  try {
+    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const pageSize = 10; // Antal objekt per sida
+
+    const clothes = await Cloth.find();
+    const offset = (currentPage - 1) * pageSize;
+    const paginatedClothes = clothes.slice(offset, offset + pageSize);
+
+    res.status(200).json(paginatedClothes);
+  } catch (e) {
+    res.status(500).json({ message: "Fel med paginatedClothes" });
+  }
+};
+export const searchClothesByName = async (req,res) =>{
+  try {
+    const {name} = req.query;
+    const clothesSearchedByNames = await Cloth.find({name});
+    if (!clothesSearchedByNames) throw new Error("Name finns inte")
+    res.status(200).json(clothesSearchedByNames)
+  }
+  catch (error) {
+    res.status(500).json({message:"Something went wrong"})
+  }
+
+};
+
+
+//high price
+export const searchClothesByHighPrice = async (req,res) =>{
+  try{
+    const clothes = await  Cloth.find();
+    const highPriceClothes = clothes.filter((cloth) => cloth.price >= 200);
+    console.log("Low prices: ", highPriceClothes)
+    res.status(200).json(highPriceClothes)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med high Price på Clothes"})
+  }
+}
+
+
+//search by low price
+export const searchClothesByLowPrice = async (req,res) =>{
+  try{
+    const clothes = await  Electronic.find();
+    const lowPriceClothes = clothes.filter((cloth) => cloth.price < 200);
+    console.log("Low prices: ", lowPriceClothes)
+    res.status(200).json(lowPriceClothes)
+  }
+  catch (e) {
+    res.status(500).json({message: "Fel med low price"})
+  }
+}
