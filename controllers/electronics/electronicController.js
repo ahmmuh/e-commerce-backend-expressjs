@@ -1,6 +1,7 @@
 import { Category } from "../../category_subcategory/model/Category.js";
 import { Electronic } from "../../models/electronics/Electronic.js";
 import { User } from "../../models/users/user.js";
+import {validationResult} from "express-validator";
 import fs from "fs";
 import { Error } from "mongoose";
 import exp from "node:constants";
@@ -70,6 +71,8 @@ export const createElectronic = async (req, res) => {
     console.log("The new Electronic is here ", newElectronic);
     res.status(201).json({ message: "One Electronic has been created" });
   } catch (error) {
+    const errors = validationResult(req)
+     console.log(errors)
     res.send(error);
   }
 };
