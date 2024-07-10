@@ -32,17 +32,17 @@ const HousePropertySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
+  user: {
+   type: mongoose.Schema.Types.ObjectId,
+   ref: "User",
+ required: true,
+   },
 
-  // address: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Address",
-  //   // required: true,
-  // },
+   address: {
+    type: mongoose.Schema.Types.ObjectId,
+     ref: "Address",
+   required: true,
+  },
   location: {
     lat: Number,
     lng: Number,
