@@ -20,15 +20,18 @@ import {
 } from "../../validations/electronic-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
 
+
 const router = express.Router();
 
 
 //crud routes
 router.get("/electronics", getElectronics);
 router.get("/electronics/:id", getElectronic);
-router.post("/electronics", electronicValidationRules,
+router.post("/electronics",
+  electronicValidationRules,
   validationAction, createElectronic);
-router.put("/electronics/:id", updateElectronic);
+router.put("/electronics/:id", electronicValidationRules,validationAction
+  ,updateElectronic);
 router.delete("/electronics/:id", deleteElectronic);
 
 //searching

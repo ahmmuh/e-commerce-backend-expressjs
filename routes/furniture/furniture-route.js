@@ -13,7 +13,6 @@ import {
   furnitureValidationRules
 } from "../../validations/furniture-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
-import { hobbyValidationRules } from "../../validations/hobby-validator.js";
 
 const router = express.Router();
 
