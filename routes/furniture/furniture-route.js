@@ -9,13 +9,19 @@ import {
   searchFurnituresByName,
   updateFurniture
 } from "../../controllers/furniture/furnitureController.js";
+import {
+  furnitureValidationRules
+} from "../../validations/furniture-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
+import { hobbyValidationRules } from "../../validations/hobby-validator.js";
 
 const router = express.Router();
 
 router.get("/furnitures", getFurnitures);
 router.get("/furnitures/:id", getFurniture);
-router.post("/furnitures", createFurniture);
-router.put("/furnitures/:id", updateFurniture);
+router.post("/furnitures", furnitureValidationRules,validationAction,
+  createFurniture);
+router.put("/furnitures/:id", furnitureValidationRules,validationAction,updateFurniture);
 router.delete("/furnitures/:id", deleteFurniture);
 
 

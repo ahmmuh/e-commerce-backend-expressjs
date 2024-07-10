@@ -9,13 +9,16 @@ import {
 import {
   searchBoatsByHighPrice
 } from "../../controllers/hobbies/boatController.js";
+import { bookValidationRules } from "../../validations/book-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
+import { hobbyValidationRules } from "../../validations/hobby-validator.js";
 
 const router = express.Router();
 
 router.get("/books", getBooks);
 router.get("/books/:id", getBook);
-router.post("/books", createBook);
-router.put("/books/:id", updateBook);
+router.post("/books", bookValidationRules,validationAction ,createBook);
+router.put("/books/:id",bookValidationRules,validationAction,updateBook);
 router.delete("/books/:id", deleteBook);
 
 

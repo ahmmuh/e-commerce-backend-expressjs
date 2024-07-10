@@ -11,13 +11,19 @@ import {
   searchHobbiesByLowPrice,
   searchHobbiesByName
 } from "../../controllers/hobbies/hobbyController.js";
+import {
+  housePropertyValidationRules
+} from "../../validations/house-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
 
 const router = express.Router();
 
 router.get("/houses", getHouses);
 router.get("/houses/:id", getHouse);
-router.post("/houses", createHouse);
-router.put("/houses/:id", updateHouse);
+router.post("/houses", housePropertyValidationRules,validationAction,
+  createHouse);
+router.put("/houses/:id", housePropertyValidationRules,validationAction,
+  updateHouse);
 router.delete("/houses/:id", deleteHouse);
 
 

@@ -15,7 +15,10 @@ import {
   getElectronicsWithSmallScreen,
   getElectronicsWithPagination
 } from "../../controllers/electronics/electronicController.js";
-import { electronicData } from "../../validations/electronic-validator.js";
+import {
+  electronicValidationRules
+} from "../../validations/electronic-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
 
 const router = express.Router();
 
@@ -23,7 +26,8 @@ const router = express.Router();
 //crud routes
 router.get("/electronics", getElectronics);
 router.get("/electronics/:id", getElectronic);
-router.post("/electronics", electronicData, createElectronic);
+router.post("/electronics", electronicValidationRules,
+  validationAction, createElectronic);
 router.put("/electronics/:id", updateElectronic);
 router.delete("/electronics/:id", deleteElectronic);
 

@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 // Validering för ditt schema
-const addressValidationRules = [
+export const addressValidationRules = [
   body("streetName")
     .notEmpty().withMessage("Gatunamn får inte vara tomt och måste vara en sträng.")
     .isString().withMessage("Gatunamn måste vara en sträng."),

@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-const clothDataValidate = [
+export const clothValidationRules = [
   body("name").notEmpty().withMessage("Namnet är obligatoriskt."),
   body("description").notEmpty().withMessage("Beskrivningen är obligatorisk."),
   body("images").isArray({ min: 1 }).withMessage("Lägg till minst en bild."),
@@ -10,4 +10,4 @@ const clothDataValidate = [
   body("thumbnail").notEmpty().withMessage("Lägg till en miniatyrbild."),
 ];
 
-export { clothDataValidate };
+

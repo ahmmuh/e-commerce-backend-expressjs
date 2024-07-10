@@ -1,6 +1,6 @@
-import {body, validationResult} from "express-validator";
+import {body} from "express-validator";
 
-export const electronicData =[
+export const electronicValidationRules =[
   body("name").notEmpty().withMessage("Namnet är ett obligatoriskt fält." +
     " Vänligen ange ett namn för din elektroniska enhet."),
   body("description").notEmpty().withMessage("Beskrivningen är obligatorisk. Ge en kortfattad beskrivning av enheten, inklusive dess funktioner och egenskaper."),

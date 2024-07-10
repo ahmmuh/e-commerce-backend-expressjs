@@ -1,6 +1,6 @@
 import {body} from "express-validator";
-// Validering för ditt schema
-const hobbyValidationRules = [
+// Validering för ditt schemae
+export const hobbyValidationRules = [
   body("name")
     .notEmpty().withMessage("Namnet får inte vara tomt.")
     .isString().withMessage("Namnet måste vara en sträng."),

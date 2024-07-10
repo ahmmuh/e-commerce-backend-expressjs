@@ -15,13 +15,17 @@ import {
   searchFurnituresByHighPrice,
   searchFurnituresByName
 } from "../../controllers/furniture/furnitureController.js";
+import { boatValidationRules } from "../../validations/boat-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
+import { hobbyValidationRules } from "../../validations/hobby-validator.js";
 
 const router = express.Router();
 
 router.get("/boats", getBoats);
 router.get("/boats/:id", getBoat);
-router.post("/boats", createBoat);
-router.put("/boats/:id", updateBoat);
+router.post("/boats", boatValidationRules,validationAction,
+  createBoat);
+router.put("/boats/:id",boatValidationRules,validationAction ,updateBoat);
 router.delete("/boats/:id", deleteBoat);
 
 

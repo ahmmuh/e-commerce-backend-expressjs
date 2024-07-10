@@ -9,13 +9,17 @@ import {
   searchHobbiesByName,
   updateHobby
 } from "../../controllers/hobbies/hobbyController.js";
+import { hobbyValidationRules } from "../../validations/hobby-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
 
 const router = express.Router();
 
 router.get("/hobbies", getHobbies);
 router.get("/hobbies/:id", getHobby);
-router.post("/hobbies", createHobby);
-router.put("/hobbies/:id", updateHobby);
+router.post("/hobbies", hobbyValidationRules,validationAction,
+  createHobby);
+router.put("/hobbies/:id",hobbyValidationRules,validationAction,
+  updateHobby);
 router.delete("/hobbies/:id", deleteHobby);
 
 //searching
