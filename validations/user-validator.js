@@ -12,8 +12,11 @@ export const userValidationRules = [
   body("email")
     .notEmpty().withMessage("E-postadress får inte vara tomt.")
     .isEmail().withMessage("Ogiltigt e-postformat."),
+
   body("phoneNumber")
     .notEmpty().withMessage("Telefonnummer får inte vara tomt.")
     .isNumeric().withMessage("Telefonnummer måste vara ett numeriskt värde."),
+
+
 ];
 

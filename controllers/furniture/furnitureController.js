@@ -24,14 +24,14 @@ export const getFurniture = async (req, res) => {
 };
 
 export const createFurniture = async (req, res) => {
+  try {
   const { name, description, price, location, user, category } = req.body;
 
   const foundedCategory = await Category.findById(req.body.category);
-  if (!foundedCategory) return res.status(404).send("Not valid category");
-
   const ownerUser = await User.findById(req.body.user);
-  if (!ownerUser) return res.status(404).send("User not found");
-  try {
+
+  if (!foundedCategory || ownerUser) return res.status(400).json({error: "Invalid category or user"})
+
     const newFurniture = new Furniture({
       name,
       description,
@@ -41,11 +41,12 @@ export const createFurniture = async (req, res) => {
       user,
       category,
     });
-    newFurniture = await newFurniture.save();
+     await newFurniture.save();
     console.log("The new Furniture is here ", newFurniture);
     res.status(201).send("Funiture created");
   } catch (error) {
-    res.send(error);
+    console.error("Error creating category")
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

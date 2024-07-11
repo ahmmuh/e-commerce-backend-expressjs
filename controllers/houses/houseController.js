@@ -21,6 +21,8 @@ export const getHouse = async (req, res) => {
 };
 
 export const createHouse = async (req, res) => {
+  try {
+
   const {
     houseType,
     yearBuilt,
@@ -31,19 +33,17 @@ export const createHouse = async (req, res) => {
     water,
     toilets,
     address,
-    // location,
+    location,
     parking,
     busConnection,
-    // category,
-    // user,
+    category,
+    user,
   } = req.body;
   const foundedCategory = await Category.findById(req.body.category);
-  if (!foundedCategory) return res.status(404).send("Not valid category");
 
   const ownerUser = await User.findById(req.body.user);
-  if (!ownerUser) return res.status(404).send("User not found");
+  if (!foundedCategory || ownerUser) return res.status(400).json({error: "Invalid category or user"})
 
-  try {
     const newHouse = new House({
       houseType,
       yearBuilt,
@@ -54,15 +54,18 @@ export const createHouse = async (req, res) => {
       water,
       toilets,
       address,
-      // location,
+      location,
       parking,
       busConnection,
+      category,
+      user,
     });
-    newHouse = await newHouse.save();
+    await newHouse.save();
     console.log("The new House is here ", newHouse);
     res.status(201).json({ message: "One House has been created" });
   } catch (error) {
-    res.send(error);
+    console.error("Error creating category")
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

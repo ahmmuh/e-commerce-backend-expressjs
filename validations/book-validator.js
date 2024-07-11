@@ -20,7 +20,9 @@ export const bookValidationRules = [
   body("image.data").optional().isBase64().withMessage("Bilddata måste vara i Base64-format."),
 
   body("image.contentType").optional().isString().withMessage("Bildtypen måste vara en sträng."),
-
+  body("category").notEmpty().withMessage("Du måste välja en kategori"),
+  body("user").notEmpty().withMessage("Du måste logga in för att kunna" +
+    " lägga till produkt (er)"),
   body("price")
     .isNumeric().withMessage("Priset måste vara ett numeriskt värde.")
     .custom((value) => value >= 0).withMessage("Priset får inte vara negativt."),

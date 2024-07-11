@@ -6,28 +6,30 @@ import { Electronic } from "../../models/electronics/Electronic.js";
 import { Error } from "mongoose";
 
 export const createCloth = async (req, res) => {
-  const { name, description, images, price, thumbnail } = req.body;
-
-  // const foundedCategory = await Category.findById(req.body.category);
-  // if (!foundedCategory) return res.status(404).send("Not valid category");
-
-  // const ownerUser = await User.findById(req.body.user);
-  // if (!ownerUser) return res.status(404).send("User Not found");
   try {
+
+  const { name, description, images, price,user,
+    category, thumbnail } = req.body;
+
+   const foundedCategory = await Category.findById(req.body.category);
+    const ownerUser = await User.findById(req.body.user);
+
+    if (!foundedCategory || !ownerUser) return res.status(400).json({error: "Invalid category or user"})
     const newCloth = new Cloth({
       name,
       description,
       images,
       price,
-      // user,
-      // category,
+     user,
+      category,
       thumbnail,
     });
-     newCloth = await newCloth.save();
+      await newCloth.save();
     console.log("The new Cloth is here ", newCloth);
     res.status(201).send({ message: "One Cloth has been created" });
   } catch (error) {
-    res.send(error);
+    console.error("Error creating cloth")
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

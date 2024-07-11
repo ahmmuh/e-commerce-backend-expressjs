@@ -21,16 +21,15 @@ export const getHobby = async (req, res) => {
 };
 
 export const createHobby = async (req, res) => {
+  try {
   const { name, description, images, price, user, location, category } =
     req.body;
 
   const foundedCategory = await Category.findById(req.body.category);
-  if (!foundedCategory) return res.status(404).send("Not valid category");
-
   const ownerUser = await User.findById(req.body.user);
-  if (!ownerUser) return res.status(404).send("User not found");
+  if (!foundedCategory || ownerUser) return res.status(400).json({error: "Invalid category or user"})
 
-  try {
+
     const newHobby = new Hobby({
       name,
       description,
@@ -40,11 +39,12 @@ export const createHobby = async (req, res) => {
       location,
       category,
     });
-    newHobby = await newHobby.save();
+   await newHobby.save();
     console.log("The new Hobby is here ", newHobby);
     res.status(201).json({ message: "One Hobby has been created" });
   } catch (error) {
-    res.send(error);
+    console.error("Error creating category")
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

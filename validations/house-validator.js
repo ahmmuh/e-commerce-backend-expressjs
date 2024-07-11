@@ -34,5 +34,10 @@ export const housePropertyValidationRules = [
   body("location.lat").optional().isNumeric().withMessage("Latituden måste vara ett numeriskt värde."),
 
   body("location.lng").optional().isNumeric().withMessage("Longituden måste vara ett numeriskt värde."),
+
+  body("category").notEmpty().withMessage("Du måste välja en kategori"),
+
+  body("user").notEmpty().withMessage("Du måste logga in för att kunna" +
+    " lägga till produkt (er)"),
 ];
 

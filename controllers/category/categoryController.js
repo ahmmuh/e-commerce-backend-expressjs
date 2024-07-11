@@ -28,13 +28,15 @@ export const createCategory = async (req, res) => {
       icon,
       color,
     });
-    category = await category.save();
+     await category.save();
     console.log("New category ", category);
     res
       .status(201)
       .json({ category: category, message: "One category has been created" });
   } catch (error) {
-    res.send(error);
+    console.error("Error creating category")
+    res.status(500).json({ error: "Internal server error" });
+
   }
 };
 
@@ -59,3 +61,5 @@ export const deleteCategory = async (req, res) => {
     res.json({ msg: error });
   }
 };
+
+

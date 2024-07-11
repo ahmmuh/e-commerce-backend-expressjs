@@ -21,29 +21,30 @@ export const getBook = async (req, res) => {
 };
 
 export const createBook = async (req, res) => {
-  const { author, name, isbn, description, image, price } = req.body;
-  // const foundedCategory = await Category.findById(req.body.category);
-  // if (!foundedCategory) return res.status(404).send("Not valid category");
-
-  // const ownerUser = await User.findById(req.body.user);
-  // if (!ownerUser) return res.status(404).send("User not found");
   try {
+  const { author, name, isbn, description, image, price ,model} = req.body;
+  const foundedCategory = await Category.findById(req.body.category);
+
+
+   const ownerUser = await User.findById(req.body.user);
+  if (!foundedCategory || ownerUser) return res.status(400).json({error: "Invalid category or user"})
+
     const newBook = new Book({
       name,
       model,
       description,
-      image,
       price,
       image: {
         data: fs.readFileSync(thumbnailImage),
         contentType: "image/png",
       },
     });
-    newBook = await newBook.save();
+    await newBook.save();
     console.log("The new Book is here ", newBook);
     res.status(201).json({ message: "One Book has been created" });
   } catch (error) {
-    res.send(error);
+    console.error("Error creating category")
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

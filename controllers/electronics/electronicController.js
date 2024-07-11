@@ -29,8 +29,8 @@ export const createElectronic = async (req, res) => {
     name,
     description,
     price,
-    // user,
-    // category,
+    user,
+    category,
     batteryHealth,
     screenSize,
     // images,
@@ -41,11 +41,10 @@ export const createElectronic = async (req, res) => {
     location,
     thumbnailImage
   } = req.body;
-  // const foundedCategory = await Category.findById(req.body.category);
-  // if (!foundedCategory) return res.status(404).send("Not valid category");
+     const foundedCategory = await Category.findById(req.body.category);
+   const ownerUser = await User.findById(req.body.user);
+  if (!foundedCategory || !ownerUser) return res.status(400).json({error: "Invalid category or user"})
 
-  // const ownerUser = await User.findById(req.body.user);
-  // if (!ownerUser) return res.status(404).send("User not found");
   try {
 
     const uploadedImage = req.file;
@@ -54,11 +53,11 @@ export const createElectronic = async (req, res) => {
       name,
       description,
       price,
-      // user,
-      // category,
+       user,
+       category,
       batteryHealth,
       screenSize,
-      // images,
+      images,
       colors,
       condition,
       receipt,

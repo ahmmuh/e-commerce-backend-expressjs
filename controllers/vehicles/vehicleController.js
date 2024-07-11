@@ -21,11 +21,11 @@ export const getVehicle = async (req, res) => {
 };
 
 export const createVehicle = async (req, res) => {
-  const foundedCategory = await Category.findById(req.body.category);
-  if (!foundedCategory) return res.status(404).send("Not valid category");
 
+  try {
+ const foundedCategory = await Category.findById(req.body.category);
   const ownerUser = await User.findById(req.body.user);
-  if (!ownerUser) return res.status(404).send("User not found");
+    if (!foundedCategory || !ownerUser) return res.status(400).json({error: "Invalid category or user"})
   const {
     manufacturer,
     model,
@@ -38,7 +38,6 @@ export const createVehicle = async (req, res) => {
     price,
     user,
   } = req.body;
-  try {
     const newVehicle = new Vehicle({
       manufacturer,
       model,
@@ -51,11 +50,12 @@ export const createVehicle = async (req, res) => {
       price,
       user,
     });
-    newVehicle = await newVehicle.save();
+    await newVehicle.save();
     console.log("The new Vehicle is here ", newVehicle);
     res.status(201).send({ message: "One Vehicle has been created" });
   } catch (error) {
-    res.send(error);
+    console.error("Error creating vehicle:", error)
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

@@ -44,7 +44,8 @@ export const createUser = async (req, res) => {
     const user = await newUser.save();
     res.status(201).send({ user: user, message: "One user has been created" });
   } catch (error) {
-    res.send(error);
+    console.error("Error creating user")
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

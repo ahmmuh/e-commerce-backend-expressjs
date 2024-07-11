@@ -18,6 +18,9 @@ export const electronicValidationRules =[
 
   body("condition").notEmpty().withMessage("Tillståndet är obligatoriskt. Ange om enheten är ‘ny’, ‘använd’, ‘renoverad’ eller något annat."),
 
+  body("images")
+    .isArray().withMessage("Det måste finnas minst en bild."),
+
   body("receipt").notEmpty().withMessage("Ange om det finns ett kvitto för" +
     " enheten. Detta kan vara en bild eller en textbeskrivning, du måste" +
     " kunna bevisa det vid köpet"),
@@ -27,7 +30,9 @@ export const electronicValidationRules =[
   body("location").notEmpty().withMessage("Ange platsen där enheten finns tillgänglig. Detta kan vara en stad, ett område eller en adress."),
 
   body("thumbnailImage").notEmpty().withMessage("Lägg till en miniatyrbild för att representera enheten. Detta bör vara en bildfil"),
-
+  body("category").notEmpty().withMessage("Du måste välja en kategori"),
+  body("user").notEmpty().withMessage("Du måste logga in för att kunna" +
+    " lägga till produkt (er)"),
 ]
 
 

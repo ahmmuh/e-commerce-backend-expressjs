@@ -35,6 +35,11 @@ export const vehicleValidationRules = [
     .notEmpty().withMessage("Pris får inte vara tomt.")
     .isNumeric().withMessage("Pris måste vara ett numeriskt värde."),
 
+  body("category").notEmpty().withMessage("Du måste välja en kategori"),
+
+  body("user").notEmpty().withMessage("Du måste logga in för att kunna" +
+    " lägga till produkt (er)"),
+
 ];
 
 
