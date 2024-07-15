@@ -1,22 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const boatController_js_1 = require("../../controllers/hobbies/boatController.js");
-const boat_validator_js_1 = require("../../validations/boat-validator.js");
-const validationAction_js_1 = require("../../validations/validationAction.js");
-const router = express_1.default.Router();
-router.get("/boats", boatController_js_1.getBoats);
-router.get("/boats/:id", boatController_js_1.getBoat);
-router.post("/boats", boat_validator_js_1.boatValidationRules, validationAction_js_1.validationAction, boatController_js_1.createBoat);
-router.put("/boats/:id", boat_validator_js_1.boatValidationRules, validationAction_js_1.validationAction, boatController_js_1.updateBoat);
-router.delete("/boats/:id", boatController_js_1.deleteBoat);
+import express from "express";
+import { createBoat, deleteBoat, getBoat, getBoats, getBoatsWithPagination, searchBoatsByHighPrice, searchBoatsByLowPrice, searchBoatsByName, updateBoat } from "../../controllers/hobbies/boatController.js";
+import { boatValidationRules } from "../../validations/boat-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
+const router = express.Router();
+router.get("/boats", getBoats);
+router.get("/boats/:id", getBoat);
+router.post("/boats", boatValidationRules, validationAction, createBoat);
+router.put("/boats/:id", boatValidationRules, validationAction, updateBoat);
+router.delete("/boats/:id", deleteBoat);
 //searching
-router.get("/boats/search", boatController_js_1.searchBoatsByName);
-router.get("/boats/search/lowprices", boatController_js_1.searchBoatsByLowPrice);
-router.get("/boats/search/highprices", boatController_js_1.searchBoatsByHighPrice);
+router.get("/boats/search", searchBoatsByName);
+router.get("/boats/search/lowprices", searchBoatsByLowPrice);
+router.get("/boats/search/highprices", searchBoatsByHighPrice);
 //pagination
-router.get("/boats/search/pages", boatController_js_1.getBoatsWithPagination);
-exports.default = router;
+router.get("/boats/search/pages", getBoatsWithPagination);
+export default router;

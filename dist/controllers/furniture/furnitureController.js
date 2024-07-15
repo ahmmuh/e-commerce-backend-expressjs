@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,38 +7,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchFurnituresByLowPrice = exports.searchFurnituresByHighPrice = exports.searchFurnituresByName = exports.getFurnituresWithPagination = exports.deleteFurniture = exports.updateFurniture = exports.createFurniture = exports.getFurniture = exports.getFurnitures = void 0;
-const Category_js_1 = require("../../category_subcategory/model/Category.js");
-const Furniture_js_1 = require("../../models/furniture/Furniture.js");
-const user_js_1 = require("../../models/users/user.js");
-const mongoose_1 = require("mongoose");
-const getFurnitures = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+import { Category } from "../../category_subcategory/model/Category.js";
+import { Furniture } from "../../models/furniture/Furniture.js";
+import { User } from "../../models/users/user.js";
+import { Error } from "mongoose";
+export const getFurnitures = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const furnitures = yield Furniture_js_1.Furniture.find();
+        const furnitures = yield Furniture.find();
         res.status(200).send(furnitures);
     }
     catch (error) {
         res.status(500).json({ message: "Något gick fel" });
     }
 });
-exports.getFurnitures = getFurnitures;
-const getFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const furniture = yield Furniture_js_1.Furniture.findById(req.params.id);
-    if (Furniture_js_1.Furniture) {
+export const getFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const furniture = yield Furniture.findById(req.params.id);
+    if (Furniture) {
         res.status(200).send(furniture);
     }
     res.status(400).json({ success: false, message: "Furniture Not found" });
 });
-exports.getFurniture = getFurniture;
-const createFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const createFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, description, price, images, location, user, category } = req.body;
-        const foundedCategory = yield Category_js_1.Category.findById(req.body.category);
-        const ownerUser = yield user_js_1.User.findById(req.body.user);
+        const foundedCategory = yield Category.findById(req.body.category);
+        const ownerUser = yield User.findById(req.body.user);
         if (!foundedCategory || ownerUser)
             return res.status(400).json({ error: "Invalid category or user" });
-        const newFurniture = new Furniture_js_1.Furniture({
+        const newFurniture = new Furniture({
             name,
             description,
             images,
@@ -57,37 +52,34 @@ const createFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.status(500).json({ error: "Internal server error" });
     }
 });
-exports.createFurniture = createFurniture;
-const updateFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const updateFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const furniture = yield Furniture_js_1.Furniture.findByIdAndUpdate(req.params.id, req.body);
+        const furniture = yield Furniture.findByIdAndUpdate(req.params.id, req.body);
         if (!furniture)
-            throw new mongoose_1.Error("Furniture Not found");
+            throw new Error("Furniture Not found");
         res.status(200).json({ success: true });
     }
     catch (error) {
         res.status(400).json({ success: false });
     }
 });
-exports.updateFurniture = updateFurniture;
-const deleteFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteFurniture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const furniture = yield Furniture_js_1.Furniture.findByIdAndDelete(req.params.id);
+        const furniture = yield Furniture.findByIdAndDelete(req.params.id);
         if (!furniture)
-            throw new mongoose_1.Error("No Furniture found");
+            throw new Error("No Furniture found");
         res.json({ success: true });
     }
     catch (error) {
         res.json({ msg: error });
     }
 });
-exports.deleteFurniture = deleteFurniture;
 // extra functions
-const getFurnituresWithPagination = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getFurnituresWithPagination = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
         const pageSize = 10; // Antal objekt per sida
-        const furnitures = yield Furniture_js_1.Furniture.find();
+        const furnitures = yield Furniture.find();
         const offset = (currentPage - 1) * pageSize;
         const paginatedFurnitures = furnitures.slice(offset, offset + pageSize);
         res.status(200).json(paginatedFurnitures);
@@ -96,24 +88,22 @@ const getFurnituresWithPagination = (req, res) => __awaiter(void 0, void 0, void
         res.status(500).json({ message: "Fel med paginatedFurnitures" });
     }
 });
-exports.getFurnituresWithPagination = getFurnituresWithPagination;
-const searchFurnituresByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchFurnituresByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name } = req.query;
-        const furnituresSearchedByNames = yield Furniture_js_1.Furniture.find({ name });
+        const furnituresSearchedByNames = yield Furniture.find({ name });
         if (!furnituresSearchedByNames)
-            throw new mongoose_1.Error("Name finns inte");
+            throw new Error("Name finns inte");
         res.status(200).json(furnituresSearchedByNames);
     }
     catch (error) {
         res.status(500).json({ message: "Something went wrong" });
     }
 });
-exports.searchFurnituresByName = searchFurnituresByName;
 //high price
-const searchFurnituresByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchFurnituresByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const furnitures = yield Furniture_js_1.Furniture.find();
+        const furnitures = yield Furniture.find();
         const highPriceFurnitures = furnitures.filter((furniture) => furniture.price >= 200);
         console.log("Low prices: ", highPriceFurnitures);
         res.status(200).json(highPriceFurnitures);
@@ -122,12 +112,11 @@ const searchFurnituresByHighPrice = (req, res) => __awaiter(void 0, void 0, void
         res.status(500).json({ message: "Fel med high Price på furnitures" });
     }
 });
-exports.searchFurnituresByHighPrice = searchFurnituresByHighPrice;
 //search by low price
-const searchFurnituresByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchFurnituresByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const furnitures = yield Furniture_js_1.Furniture.find();
-        const lowPriceFurnitures = furnitures.filter((furniture) => furniture.price < 200);
+        const furnitures = yield Furniture.find();
+        const lowPriceFurnitures = furnitures.filter((furniture) => furniture.price == 200);
         console.log("Low prices: ", lowPriceFurnitures);
         res.status(200).json(lowPriceFurnitures);
     }
@@ -135,4 +124,3 @@ const searchFurnituresByLowPrice = (req, res) => __awaiter(void 0, void 0, void 
         res.status(500).json({ message: "Fel med low price" });
     }
 });
-exports.searchFurnituresByLowPrice = searchFurnituresByLowPrice;

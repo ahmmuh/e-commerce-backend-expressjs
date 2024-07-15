@@ -1,5 +1,4 @@
 import { User } from "../../models/users/user.js";
-import bcrypt from "bcrypt";
 import { House } from "../../models/houses/HouseModel.js";
 import { Request, Response } from "express";
 
@@ -14,7 +13,7 @@ export const getUsers = async (req:Request, res:Response) => {
 
 export const countUsers = async (req:Request, res:Response) => {
   try {
-    const countedDocument = await User.find().toArray().countDocuments();
+    const countedDocument = await User.find().countDocuments();
     res.status(200).send(countedDocument);
   } catch (error) {
     res.status(500).json({ success: false });
@@ -74,7 +73,7 @@ export const deleteUser = async (req:Request, res:Response) => {
 
 export const getUsersWithPagination = async (req:Request, res:Response) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const currentPage = parseInt(req.query.page as string) || 1; // Aktuell sida (default: 1)
     const pageSize = 10; // Antal objekt per sida
 
     const users = await User.find();

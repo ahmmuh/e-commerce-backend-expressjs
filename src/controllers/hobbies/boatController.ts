@@ -60,7 +60,7 @@ export const updateBoat = async (req:Request, res:Response) => {
   }
 };
 
-export const deleteBoat = async (req, res) => {
+export const deleteBoat = async (req: Request, res:Response) => {
   try {
     const boat = await Boat.findByIdAndDelete(req.params.id);
     if (!boat) throw Error("No Boat found");
@@ -75,7 +75,7 @@ export const deleteBoat = async (req, res) => {
 
 export const getBoatsWithPagination = async (req:Request, res:Response) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const currentPage = parseInt(req.query.page as string) || 1; // Aktuell sida (default: 1)
     const pageSize = 10; // Antal objekt per sida
 
     const boats = await Boat.find();
@@ -105,7 +105,7 @@ export const searchBoatsByName = async (req:Request, res:Response) =>{
 export const searchBoatsByHighPrice = async (req:Request, res:Response) =>{
   try{
     const boats = await  Boat.find();
-    const highPriceBoats = boats.filter((boat) => boat.price >= 200);
+    const highPriceBoats = boats.filter((boat) => boat.price as number >= 200);
     console.log("Low prices: ", highPriceBoats)
     res.status(200).json(highPriceBoats)
   }
@@ -119,7 +119,7 @@ export const searchBoatsByHighPrice = async (req:Request, res:Response) =>{
 export const searchBoatsByLowPrice = async (req:Request, res:Response) =>{
   try{
     const boats = await  Boat.find();
-    const lowPriceBoats = boats.filter((boat) => boat.price < 200);
+    const lowPriceBoats = boats.filter((boat) => boat.price as number  <= 200)
     console.log("Low prices: ", lowPriceBoats)
     res.status(200).json(lowPriceBoats)
   }

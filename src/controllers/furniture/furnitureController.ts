@@ -79,7 +79,7 @@ export const deleteFurniture = async (req:Request, res:Response) => {
 
 export const getFurnituresWithPagination = async (req:Request, res:Response) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const currentPage = parseInt(req.query.page as string) || 1; // Aktuell sida (default: 1)
     const pageSize = 10; // Antal objekt per sida
 
     const furnitures = await Furniture.find();
@@ -109,7 +109,7 @@ export const searchFurnituresByName = async (req:Request, res:Response) =>{
 export const searchFurnituresByHighPrice = async (req:Request, res:Response) =>{
   try{
     const furnitures = await  Furniture.find();
-    const highPriceFurnitures = furnitures.filter((furniture) => furniture.price >= 200);
+    const highPriceFurnitures = furnitures.filter((furniture) => furniture.price as number >= 200);
     console.log("Low prices: ", highPriceFurnitures)
     res.status(200).json(highPriceFurnitures)
   }
@@ -123,8 +123,8 @@ export const searchFurnituresByHighPrice = async (req:Request, res:Response) =>{
 export const searchFurnituresByLowPrice = async (req:Request, res:Response) =>{
   try{
     const furnitures = await  Furniture.find();
-    const lowPriceFurnitures = furnitures.filter((furniture) => furniture.price < 200);
-    console.log("Low prices: ", lowPriceFurnitures)
+    const lowPriceFurnitures = furnitures.filter((furniture) => furniture.price as number == 200)
+   console.log("Low prices: ", lowPriceFurnitures)
     res.status(200).json(lowPriceFurnitures)
   }
   catch (e) {

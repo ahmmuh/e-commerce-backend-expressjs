@@ -1,11 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Vehicle = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const Schema = mongoose_1.default.Schema;
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 const vehicleSchema = new Schema({
     manufacturer: {
         type: String,
@@ -16,12 +10,12 @@ const vehicleSchema = new Schema({
         required: true,
     },
     category: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Category",
         required: true,
     },
     user: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
     },
@@ -50,4 +44,4 @@ const vehicleSchema = new Schema({
         required: true,
     },
 });
-exports.Vehicle = mongoose_1.default.model("vehicles", vehicleSchema);
+export const Vehicle = mongoose.model("vehicles", vehicleSchema);

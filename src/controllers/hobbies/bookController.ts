@@ -23,7 +23,7 @@ export const getBook = async (req:Request, res:Response) => {
 
 export const createBook = async (req:Request, res:Response) => {
   try {
-  const { author, name, isbn, description, image, price ,model} = req.body;
+  const { author, name, isbn, description, image, price,thumbnailImage ,model} = req.body;
   const foundedCategory = await Category.findById(req.body.category);
 
 
@@ -51,8 +51,8 @@ export const createBook = async (req:Request, res:Response) => {
 
 export const updateBook = async (req:Request, res:Response) => {
   try {
-    const Book = await Book.findByIdAndUpdate(req.params.id, req.body);
-    if (!Book) throw Error("Book Not found");
+    const book = await Book.findByIdAndUpdate(req.params.id, req.body);
+    if (!book) throw Error("Book Not found");
     res.status(200).send("Book updated");
   } catch (error) {
     res.status(400).json({ success: false });
@@ -61,8 +61,8 @@ export const updateBook = async (req:Request, res:Response) => {
 
 export const deleteBook = async (req:Request, res:Response) => {
   try {
-    const Book = await Book.findByIdAndDelete(req.params.id);
-    if (!Book) throw Error("No Book found");
+    const book = await Book.findByIdAndDelete(req.params.id);
+    if (!book) throw Error("No Book found");
     res.json({ success: true });
   } catch (error) {
     res.json({ msg: error });
@@ -74,7 +74,7 @@ export const deleteBook = async (req:Request, res:Response) => {
 
 export const getBooksWithPagination = async (req:Request, res:Response) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const currentPage = parseInt(req.query.page as string) || 1; // Aktuell sida (default: 1)
     const pageSize = 10; // Antal objekt per sida
 
     const books = await Book.find();

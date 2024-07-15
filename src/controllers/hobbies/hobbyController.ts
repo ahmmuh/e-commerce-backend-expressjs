@@ -76,7 +76,7 @@ export const deleteHobby = async (req:Request, res:Response) => {
 
 export const getHobbiesWithPagination = async (req:Request, res:Response) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const currentPage = parseInt(req.query.page as string) || 1; // Aktuell sida (default: 1)
     const pageSize = 10; // Antal objekt per sida
 
     const hobbies = await Hobby.find();

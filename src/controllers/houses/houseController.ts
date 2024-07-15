@@ -95,7 +95,7 @@ export const deleteHouse = async (req:Request, res:Response) => {
 
 export const getHousesWithPagination = async (req:Request, res:Response) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const currentPage = parseInt(req.query.page as string) || 1; // Aktuell sida (default: 1)
     const pageSize = 10; // Antal objekt per sida
 
     const houses = await House.find();

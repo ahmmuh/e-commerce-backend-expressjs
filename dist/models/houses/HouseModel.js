@@ -1,12 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.House = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
+import mongoose from "mongoose";
 // Define a general property model
-const HousePropertySchema = new mongoose_1.default.Schema({
+const HousePropertySchema = new mongoose.Schema({
     //type of the house, bostadsrätt eller hyresrätt
     houseType: {
         type: String,
@@ -39,12 +33,12 @@ const HousePropertySchema = new mongoose_1.default.Schema({
         required: true,
     },
     user: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
     },
     address: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
         required: true,
     },
@@ -60,7 +54,7 @@ const HousePropertySchema = new mongoose_1.default.Schema({
     },
 });
 // Define specific models for different types of properties
-exports.House = mongoose_1.default.model("House", HousePropertySchema);
+export const House = mongoose.model("House", HousePropertySchema);
 // export const Apartment = mongoose.model("Apartment", HousePropertySchema);
 // export const Villa = mongoose.model("Villa", HousePropertySchema);
 // export const Cottage = mongoose.model("Cottage", HousePropertySchema);

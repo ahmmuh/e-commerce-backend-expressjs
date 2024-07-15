@@ -1,11 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Boat = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const BoatSchema = new mongoose_1.default.Schema({
+import mongoose from "mongoose";
+const BoatSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -27,4 +21,4 @@ const BoatSchema = new mongoose_1.default.Schema({
         require: true,
     },
 });
-exports.Boat = mongoose_1.default.model("Boat", BoatSchema);
+export const Boat = mongoose.model("Boat", BoatSchema);

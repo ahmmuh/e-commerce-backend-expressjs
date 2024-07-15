@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,37 +7,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchVehiclesByLowPrice = exports.searchVehiclesByHighPrice = exports.searchVehiclesByName = exports.getVehiclesWithPagination = exports.deleteVehicle = exports.updateVehicle = exports.createVehicle = exports.getVehicle = exports.getVehicles = void 0;
-const Category_js_1 = require("../../category_subcategory/model/Category.js");
-const Vehicle_js_1 = require("../../models/Vehicles/Vehicle.js");
-const user_js_1 = require("../../models/users/user.js");
-const getVehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+import { Category } from "../../category_subcategory/model/Category.js";
+import { Vehicle } from "../../models/Vehicles/Vehicle.js";
+import { User } from "../../models/users/user.js";
+export const getVehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const Vehicles = yield Vehicle_js_1.Vehicle.find();
+        const Vehicles = yield Vehicle.find();
         res.status(200).send(Vehicles);
     }
     catch (error) {
         res.status(500).json({ message: "Något gick fel" });
     }
 });
-exports.getVehicles = getVehicles;
-const getVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const vehicle = yield Vehicle_js_1.Vehicle.findById(req.params.id);
+export const getVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const vehicle = yield Vehicle.findById(req.params.id);
     if (vehicle) {
         res.status(200).send(vehicle);
     }
     res.status(400).json({ success: false, message: "vehicle Not found" });
 });
-exports.getVehicle = getVehicle;
-const createVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const createVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const foundedCategory = yield Category_js_1.Category.findById(req.body.category);
-        const ownerUser = yield user_js_1.User.findById(req.body.user);
+        const foundedCategory = yield Category.findById(req.body.category);
+        const ownerUser = yield User.findById(req.body.user);
         if (!foundedCategory || !ownerUser)
             return res.status(400).json({ error: "Invalid category or user" });
         const { manufacturer, model, category, color, year, mileage, fuelType, horsepower, price, user, } = req.body;
-        const newVehicle = new Vehicle_js_1.Vehicle({
+        const newVehicle = new Vehicle({
             manufacturer,
             model,
             category,
@@ -59,10 +54,9 @@ const createVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({ error: "Internal server error" });
     }
 });
-exports.createVehicle = createVehicle;
-const updateVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const updateVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const vehicle = yield Vehicle_js_1.Vehicle.findByIdAndUpdate(req.params.id, req.body);
+        const vehicle = yield Vehicle.findByIdAndUpdate(req.params.id, req.body);
         if (!vehicle)
             throw Error("vehicle Not found");
         res.status(200).send("updated vehicle");
@@ -71,10 +65,9 @@ const updateVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(400).json({ success: false });
     }
 });
-exports.updateVehicle = updateVehicle;
-const deleteVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const vehicle = yield Vehicle_js_1.Vehicle.findByIdAndDelete(req.params.id);
+        const vehicle = yield Vehicle.findByIdAndDelete(req.params.id);
         if (!vehicle)
             throw Error("No vehicle found");
         res.status(200).send("Deleted Vehicle");
@@ -83,13 +76,12 @@ const deleteVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.json({ msg: error });
     }
 });
-exports.deleteVehicle = deleteVehicle;
 // extra functions
-const getVehiclesWithPagination = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getVehiclesWithPagination = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
         const pageSize = 10; // Antal objekt per sida
-        const vehicles = yield Vehicle_js_1.Vehicle.find();
+        const vehicles = yield Vehicle.find();
         const offset = (currentPage - 1) * pageSize;
         const paginatedVehicles = vehicles.slice(offset, offset + pageSize);
         res.status(200).json(paginatedVehicles);
@@ -98,11 +90,10 @@ const getVehiclesWithPagination = (req, res) => __awaiter(void 0, void 0, void 0
         res.status(500).json({ message: "Fel med paginated vehicles" });
     }
 });
-exports.getVehiclesWithPagination = getVehiclesWithPagination;
-const searchVehiclesByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchVehiclesByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name } = req.query;
-        const vehiclesSearchedByNames = yield Vehicle_js_1.Vehicle.find({ name });
+        const vehiclesSearchedByNames = yield Vehicle.find({ name });
         if (!vehiclesSearchedByNames)
             throw new Error("Name finns inte");
         res.status(200).json(vehiclesSearchedByNames);
@@ -111,11 +102,10 @@ const searchVehiclesByName = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(500).json({ message: "Something went wrong" });
     }
 });
-exports.searchVehiclesByName = searchVehiclesByName;
 //high price
-const searchVehiclesByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchVehiclesByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const vehicles = yield Vehicle_js_1.Vehicle.find();
+        const vehicles = yield Vehicle.find();
         const highPriceVehicles = vehicles.filter((vehicle) => vehicle.price >= 200);
         console.log("Low prices: ", highPriceVehicles);
         res.status(200).json(highPriceVehicles);
@@ -124,11 +114,10 @@ const searchVehiclesByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0
         res.status(500).json({ message: "Fel med high Price på vehicles" });
     }
 });
-exports.searchVehiclesByHighPrice = searchVehiclesByHighPrice;
 //search by low price
-const searchVehiclesByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchVehiclesByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const vehicles = yield Vehicle_js_1.Vehicle.find();
+        const vehicles = yield Vehicle.find();
         const lowPriceVehicles = vehicles.filter((vehicle) => vehicle.price < 200);
         console.log("Low prices: ", lowPriceVehicles);
         res.status(200).json(lowPriceVehicles);
@@ -137,4 +126,3 @@ const searchVehiclesByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0,
         res.status(500).json({ message: "Fel med low price" });
     }
 });
-exports.searchVehiclesByLowPrice = searchVehiclesByLowPrice;

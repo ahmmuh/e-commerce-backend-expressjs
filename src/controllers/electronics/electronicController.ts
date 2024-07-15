@@ -3,7 +3,6 @@ import { Electronic } from "../../models/electronics/Electronic.js";
 import { User } from "../../models/users/user.js";
 import fs from "fs";
 import { Error } from "mongoose";
-import exp from "node:constants";
 import { Request, Response } from "express";
 export const getElectronics = async (req:Request, res:Response) => {
   try {
@@ -202,7 +201,7 @@ export const getElectronicsWithSmallScreen = async (req:Request, res:Response) =
 
 export const getElectronicsWithPagination = async (req:Request, res:Response) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
+    const currentPage = parseInt(req.query.page as string) || 1; // Aktuell sida (default: 1)
     const pageSize = 10; // Antal objekt per sida
 
     const electronics = await Electronic.find();

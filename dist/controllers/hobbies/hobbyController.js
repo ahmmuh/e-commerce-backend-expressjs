@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,37 +7,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchHobbiesByLowPrice = exports.searchHobbiesByHighPrice = exports.searchHobbiesByName = exports.getHobbiesWithPagination = exports.deleteHobby = exports.updateHobby = exports.createHobby = exports.getHobby = exports.getHobbies = void 0;
-const Category_js_1 = require("../../category_subcategory/model/Category.js");
-const Hobby_js_1 = require("../../models/hobbies/Hobby.js");
-const user_js_1 = require("../../models/users/user.js");
-const getHobbies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+import { Category } from "../../category_subcategory/model/Category.js";
+import { Hobby } from "../../models/hobbies/Hobby.js";
+import { User } from "../../models/users/user.js";
+export const getHobbies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const hobbies = yield Hobby_js_1.Hobby.find();
+        const hobbies = yield Hobby.find();
         res.status(200).send(hobbies);
     }
     catch (error) {
         res.status(500).json({ message: "Något gick fel" });
     }
 });
-exports.getHobbies = getHobbies;
-const getHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const hobby = yield Hobby_js_1.Hobby.findById(req.params.id);
+export const getHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const hobby = yield Hobby.findById(req.params.id);
     if (hobby) {
         res.status(200).send(hobby);
     }
     res.status(400).json({ success: false, message: "Hobby Not found" });
 });
-exports.getHobby = getHobby;
-const createHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const createHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, description, images, price, user, location, category } = req.body;
-        const foundedCategory = yield Category_js_1.Category.findById(req.body.category);
-        const ownerUser = yield user_js_1.User.findById(req.body.user);
+        const foundedCategory = yield Category.findById(req.body.category);
+        const ownerUser = yield User.findById(req.body.user);
         if (!foundedCategory || ownerUser)
             return res.status(400).json({ error: "Invalid category or user" });
-        const newHobby = new Hobby_js_1.Hobby({
+        const newHobby = new Hobby({
             name,
             description,
             images,
@@ -56,10 +51,9 @@ const createHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(500).json({ error: "Internal server error" });
     }
 });
-exports.createHobby = createHobby;
-const updateHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const updateHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const hobby = yield Hobby_js_1.Hobby.findByIdAndUpdate(req.params.id, req.body);
+        const hobby = yield Hobby.findByIdAndUpdate(req.params.id, req.body);
         if (!hobby)
             throw Error("Hobby Not found");
         res.status(200).send("Sno updated");
@@ -68,10 +62,9 @@ const updateHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(400).json({ success: false });
     }
 });
-exports.updateHobby = updateHobby;
-const deleteHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const hobby = yield Hobby_js_1.Hobby.findByIdAndDelete(req.params.id);
+        const hobby = yield Hobby.findByIdAndDelete(req.params.id);
         if (!hobby)
             throw Error("No Hobby found");
         res.status(200).send("hobby deleted");
@@ -80,13 +73,12 @@ const deleteHobby = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.json({ msg: error });
     }
 });
-exports.deleteHobby = deleteHobby;
 // extra functions
-const getHobbiesWithPagination = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getHobbiesWithPagination = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const currentPage = parseInt(req.query.page) || 1; // Aktuell sida (default: 1)
         const pageSize = 10; // Antal objekt per sida
-        const hobbies = yield Hobby_js_1.Hobby.find();
+        const hobbies = yield Hobby.find();
         const offset = (currentPage - 1) * pageSize;
         const paginatedHobbies = hobbies.slice(offset, offset + pageSize);
         res.status(200).json(paginatedHobbies);
@@ -95,11 +87,10 @@ const getHobbiesWithPagination = (req, res) => __awaiter(void 0, void 0, void 0,
         res.status(500).json({ message: "Fel med paginated hobbies" });
     }
 });
-exports.getHobbiesWithPagination = getHobbiesWithPagination;
-const searchHobbiesByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchHobbiesByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name } = req.query;
-        const hobbiesSearchedByNames = yield Hobby_js_1.Hobby.find({ name });
+        const hobbiesSearchedByNames = yield Hobby.find({ name });
         if (!hobbiesSearchedByNames)
             throw new Error("Name finns inte");
         res.status(200).json(hobbiesSearchedByNames);
@@ -108,11 +99,10 @@ const searchHobbiesByName = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.status(500).json({ message: "Something went wrong" });
     }
 });
-exports.searchHobbiesByName = searchHobbiesByName;
 //high price
-const searchHobbiesByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchHobbiesByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const hobbies = yield Hobby_js_1.Hobby.find();
+        const hobbies = yield Hobby.find();
         const highPriceHobbies = hobbies.filter((hobby) => hobby.price >= 200);
         console.log("Low prices: ", highPriceHobbies);
         res.status(200).json(highPriceHobbies);
@@ -121,11 +111,10 @@ const searchHobbiesByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0,
         res.status(500).json({ message: "Fel med high Price på hobbies" });
     }
 });
-exports.searchHobbiesByHighPrice = searchHobbiesByHighPrice;
 //search by low price
-const searchHobbiesByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const searchHobbiesByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const hobbies = yield Hobby_js_1.Hobby.find();
+        const hobbies = yield Hobby.find();
         const lowPriceHobbies = hobbies.filter((hobby) => hobby.price < 200);
         console.log("Low prices: ", lowPriceHobbies);
         res.status(200).json(lowPriceHobbies);
@@ -134,4 +123,3 @@ const searchHobbiesByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, 
         res.status(500).json({ message: "Fel med low price" });
     }
 });
-exports.searchHobbiesByLowPrice = searchHobbiesByLowPrice;
