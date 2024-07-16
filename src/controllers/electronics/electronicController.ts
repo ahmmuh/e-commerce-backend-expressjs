@@ -1,14 +1,11 @@
 import { Category } from "../../category_subcategory/model/Category.js";
 import { Electronic } from "../../models/electronics/Electronic.js";
 import { User } from "../../models/users/user.js";
-import fs from "fs";
 import { Error } from "mongoose";
 import { Request, Response } from "express";
 export const getElectronics = async (req:Request, res:Response) => {
   try {
     const electronics = await Electronic.find();
-   //electronics = [...electronics].map((electronic) =>
-    // Buffer.from(electronic.thumbnailImage))
     res.status(200).send(electronics);
   } catch (error) {
     res.status(500).json({ message: "Något gick fel" });

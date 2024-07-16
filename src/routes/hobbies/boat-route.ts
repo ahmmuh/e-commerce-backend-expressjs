@@ -10,14 +10,8 @@ import {
   searchBoatsByName,
   updateBoat
 } from "../../controllers/hobbies/boatController.js";
-import {
-  getFurnituresWithPagination,
-  searchFurnituresByHighPrice,
-  searchFurnituresByName
-} from "../../controllers/furniture/furnitureController.js";
 import { boatValidationRules } from "../../validations/boat-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
-import { hobbyValidationRules } from "../../validations/hobby-validator.js";
 
 const router = express.Router();
 

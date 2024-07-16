@@ -20,6 +20,11 @@ const AddressSchema = new mongoose.Schema({
   buildingNumber: {
     type: Number,
   },
+  user:{
+    type: mongoose.Schema.Types.String,
+    ref: "User",
+    required: true,
+  }
 });
 
 export const Address = mongoose.model("addresses", AddressSchema);
