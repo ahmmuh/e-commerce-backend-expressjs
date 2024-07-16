@@ -1,6 +1,7 @@
 import { User } from "../../models/users/user.js";
 import { House } from "../../models/houses/HouseModel.js";
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 
 export const getUsers = async (req:Request, res:Response) => {
   try {
@@ -30,7 +31,17 @@ export const getUser = async (req:Request, res:Response) => {
 };
 
 export const createUser = async (req:Request, res:Response) => {
-  const { firstName, lastName, email, password, phoneNumber, birthDay } =
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    phoneNumber,
+    profileImage,
+    address,
+    location,
+    birthDay,
+  } =
     req.body;
   try {
     const newUser = new User({
@@ -39,6 +50,9 @@ export const createUser = async (req:Request, res:Response) => {
       email,
       password,
       phoneNumber,
+      profileImage,
+      address,
+      location,
       birthDay,
     });
     const user = await newUser.save();

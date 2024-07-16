@@ -24,7 +24,10 @@ export const getBoat = async (req:Request, res:Response) => {
 export const createBoat = async (req:Request, res:Response) => {
   try {
   const { name, model, description, price, user,
-    category, image } = req.body;
+    category,
+    thumbnail,
+    images
+  } = req.body;
   const foundedCategory = await Category.findById(req.body.category);
   const ownerUser = await User.findById(req.body.user);
   if (!foundedCategory || ownerUser) return res.status(400).json({error: "Invalid category or user"})
@@ -36,10 +39,8 @@ export const createBoat = async (req:Request, res:Response) => {
       price,
       category,
       user,
-      image: {
-        data: fs.readFileSync(image),
-        contentType: "image/png",
-      },
+      thumbnail,
+      images
     });
    await newBoat.save();
     console.log("The new Boat is here ", newBoat);

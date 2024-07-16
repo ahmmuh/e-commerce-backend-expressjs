@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 
 const AddressSchema = new mongoose.Schema({
-  buildingNumber: {
-    type: Number,
-  },
   streetName: {
     type: String,
     required: true,
@@ -18,7 +15,10 @@ const AddressSchema = new mongoose.Schema({
   },
   postalCode: {
     type: String,
-    required: true,
+    required: false,
+  },
+  buildingNumber: {
+    type: Number,
   },
 });
 

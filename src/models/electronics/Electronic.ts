@@ -14,58 +14,56 @@ const ElectronicSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
-  // category: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Category",
-  //   required: true,
-  // },
-
-  //images: [{ type: Array, required: true }],
+  images: [{ type: String, required: true }],
   batteryHealth: {
-    type: String,
-    label: String,
-    required: Boolean,
+    type: Number,
+    required: true,
   },
   screenSize: {
     type: String,
-    label: String,
-    required: Boolean,
+    required: true,
   },
-  colors: {
+  color: {
     type: String,
-    label: String,
-    required: Boolean,
+    required: true,
   },
   condition: {
     type: String,
-    label: String,
-    required: Boolean,
+    required: true,
   },
   receipt: {
     type: String,
-    label: String,
-    required: Boolean,
+    required: true,
   },
   ownershipDuration: {
-    type: String,
-    label: String,
-    required: Boolean,
-  },
-
-  location: {
-    lat: Number,
-    lng: Number,
+    type: Number,
+    required: true,
   },
 
   thumbnailImage: {
     type: Buffer,
     required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
+
+  address: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Address",
+    required: true,
+  },
+
+  location: {
+    latitude: Number,
+    longitude: Number,
   },
 });
 

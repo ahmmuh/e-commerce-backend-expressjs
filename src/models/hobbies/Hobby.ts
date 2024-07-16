@@ -20,10 +20,21 @@ const HobbySchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
+
+  address: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Address",
+    required: true,
+  },
 
   location: {
-    lat: Number,
-    lng: Number,
+    latitude: Number,
+    longitude: Number,
   },
 });
 

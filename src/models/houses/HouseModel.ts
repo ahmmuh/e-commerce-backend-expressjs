@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 // Define a general property model
 const HousePropertySchema = new mongoose.Schema({
-  //type of the house, bostadsrätt eller hyresrätt
   houseType: {
     type: String,
     required: true,
@@ -11,7 +10,7 @@ const HousePropertySchema = new mongoose.Schema({
     required: true,
   },
   squareMeters: {
-    type: String,
+    type: Number,
     required: true,
   },
   price: {
@@ -24,28 +23,38 @@ const HousePropertySchema = new mongoose.Schema({
   },
   wifi: {
     type: Boolean,
+    required: true,
   },
   water: {
     type: Boolean,
+    required: true,
   },
   toilets: {
     type: Number,
     required: true,
   },
-  user: {
-   type: mongoose.Schema.Types.ObjectId,
-   ref: "User",
- required: true,
-   },
+  images: [{ type: String, required: true }],
 
-   address: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-     ref: "Address",
-   required: true,
+    ref: "User",
+    required: true,
   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
+
+  address: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Address",
+    required: true,
+  },
+
   location: {
-    lat: Number,
-    lng: Number,
+    latitude: Number,
+    longitude: Number,
   },
   parking: {
     type: Boolean,
@@ -55,8 +64,4 @@ const HousePropertySchema = new mongoose.Schema({
   },
 });
 
-// Define specific models for different types of properties
 export const House = mongoose.model("House", HousePropertySchema);
-// export const Apartment = mongoose.model("Apartment", HousePropertySchema);
-// export const Villa = mongoose.model("Villa", HousePropertySchema);
-// export const Cottage = mongoose.model("Cottage", HousePropertySchema);

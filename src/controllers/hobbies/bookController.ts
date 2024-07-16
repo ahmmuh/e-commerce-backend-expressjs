@@ -23,7 +23,21 @@ export const getBook = async (req:Request, res:Response) => {
 
 export const createBook = async (req:Request, res:Response) => {
   try {
-  const { author, name, isbn, description, image, price,thumbnailImage ,model} = req.body;
+  const {
+    author,
+    bookName,
+    isbn,
+    description,
+    price,
+    color,
+    thumbnail,
+    pageNumber,
+    images,
+    user,
+    category,
+    address,
+    location,
+  } = req.body;
   const foundedCategory = await Category.findById(req.body.category);
 
 
@@ -31,14 +45,19 @@ export const createBook = async (req:Request, res:Response) => {
   if (!foundedCategory || ownerUser) return res.status(400).json({error: "Invalid category or user"})
 
     const newBook = new Book({
-      name,
-      model,
+      author,
+      bookName,
+      isbn,
       description,
       price,
-      image: {
-        data: fs.readFileSync(thumbnailImage),
-        contentType: "image/png",
-      },
+      color,
+      thumbnail,
+      pageNumber,
+      images,
+      user,
+      category,
+      address,
+      location,
     });
     await newBook.save();
     console.log("The new Book is here ", newBook);
@@ -104,7 +123,7 @@ export const searchBooksByName = async (req:Request, res:Response) =>{
 export const searchBooksByHighPrice = async (req:Request, res:Response) =>{
   try{
     const books = await  Book.find();
-    const highPriceBooks = books.filter((book) => book.price >= 200);
+    const highPriceBooks = books.filter((book) => book.price as number >= 200);
     console.log("Low prices: ", highPriceBooks)
     res.status(200).json(highPriceBooks)
   }
@@ -118,7 +137,7 @@ export const searchBooksByHighPrice = async (req:Request, res:Response) =>{
 export const searchBooksByLowPrice = async (req:Request, res:Response) =>{
   try{
     const books = await  Book.find();
-    const lowPriceBooks = books.filter((book) => book.price < 200);
+    const lowPriceBooks = books.filter((book) => book.price as number <= 200);
     console.log("Low prices: ", lowPriceBooks)
     res.status(200).json(lowPriceBooks)
   }

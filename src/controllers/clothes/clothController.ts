@@ -9,8 +9,19 @@ import {Request,Response} from "express";
 export const createCloth = async (req:Request, res:Response) => {
   try {
 
-  const { name, description, images, price,user,
-    category, thumbnail } = req.body;
+  const {
+    name,
+    description,
+    color,
+    size,
+    images,
+    price,
+    thumbnail,
+    user,
+    category,
+    address,
+    location,
+  } = req.body;
 
    const foundedCategory = await Category.findById(req.body.category);
     const ownerUser = await User.findById(req.body.user);
@@ -19,11 +30,15 @@ export const createCloth = async (req:Request, res:Response) => {
     const newCloth = new Cloth({
       name,
       description,
+      color,
+      size,
       images,
       price,
-     user,
-      category,
       thumbnail,
+      user,
+      category,
+      address,
+      location,
     });
       await newCloth.save();
     console.log("The new Cloth is here ", newCloth);
@@ -65,7 +80,7 @@ export const updateCloth = async (req:Request, res:Response) => {
 export const deleteCloth = async (req:Request, res:Response) => {
   try {
     const cloth = await Cloth.findByIdAndDelete(req.params.id);
-    if (!cloth) throw new Error("No Cloth found");
+    if (!cloth) throw new Error("The product was not found");
     res.status(200).send("deleted");
   } catch (error) {
     res.json({ msg: error });
@@ -120,7 +135,7 @@ export const searchClothesByHighPrice = async (req:Request, res:Response) =>{
 export const searchClothesByLowPrice = async (req:Request, res:Response) =>{
   try{
     const clothes = await  Electronic.find();
-    const lowPriceClothes = clothes.filter((cloth) => cloth.price < 200);
+    const lowPriceClothes = clothes.filter((cloth) => cloth.price as number <= 200);
     console.log("Low prices: ", lowPriceClothes)
     res.status(200).json(lowPriceClothes)
   }

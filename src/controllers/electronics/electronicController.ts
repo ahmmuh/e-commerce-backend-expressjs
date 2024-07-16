@@ -34,7 +34,7 @@ export const createElectronic = async (req:Request, res:Response) => {
     batteryHealth,
     screenSize,
     images,
-    colors,
+    color,
     condition,
     receipt,
     ownershipDuration,
@@ -53,19 +53,19 @@ export const createElectronic = async (req:Request, res:Response) => {
       name,
       description,
       price,
-       user,
-       category,
+      user,
+      category,
       batteryHealth,
       screenSize,
       images,
-      colors,
+      color,
       condition,
       receipt,
       ownershipDuration,
       location,
       thumbnailImage
     });
-    newElectronic = await newElectronic.save();
+    await newElectronic.save();
     console.log("The new Electronic is here ", newElectronic);
     res.status(201).json({ message: "One Electronic has been created" });
   } catch (error) {
@@ -115,7 +115,7 @@ export const deleteElectronic = async (req:Request, res:Response) => {
 export const searchByHighPrice = async (req:Request, res:Response) =>{
   try{
     const electronics = await  Electronic.find();
-    const highPriceElectronics = electronics.filter((electronic) => electronic.price >= 200);
+    const highPriceElectronics = electronics.filter((electronic) => electronic.price as number >= 200);
     console.log("Low prices: ", highPriceElectronics)
     res.status(200).json(highPriceElectronics)
   }
@@ -129,7 +129,7 @@ export const searchByHighPrice = async (req:Request, res:Response) =>{
 export const searchByLowPrice = async (req:Request, res:Response) =>{
   try{
     const electronics = await  Electronic.find();
-     const lowPriceElectronics = electronics.filter((electronic) => electronic.price < 200);
+     const lowPriceElectronics = electronics.filter((electronic) => electronic.price as number <= 200);
    console.log("Low prices: ", lowPriceElectronics)
     res.status(200).json(lowPriceElectronics)
   }
