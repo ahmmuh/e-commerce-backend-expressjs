@@ -1,5 +1,4 @@
 import { body } from "express-validator";
-// Validation rules for HousePropertySchema
 export const housePropertyValidationRules = [
     body("houseType")
         .notEmpty().withMessage("Typ av hus får inte vara tomt.")

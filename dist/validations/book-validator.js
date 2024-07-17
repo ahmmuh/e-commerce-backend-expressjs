@@ -1,5 +1,4 @@
 import { body } from "express-validator";
-// Validering för ditt schema
 export const bookValidationRules = [
     body("author")
         .notEmpty().withMessage("Författaren får inte vara tomt.")

@@ -11,19 +11,13 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    // hobbies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hobby" }],
-    // clothes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cloth" }],
-    // electronics: [{ type: mongoose.Schema.Types.ObjectId, ref: "Electronic" }],
-    // Furnitures: [{ type: mongoose.Schema.Types.ObjectId, ref: "Furniture" }],
-    // houses: [{ type: mongoose.Schema.Types.ObjectId, ref: "House" }],
-    // vehicles: [Vehicle],
     email: {
         type: String,
         required: true,
     },
     password: {
         type: String,
-        // required: true
+        required: true
     },
     phoneNumber: {
         type: Number,
@@ -32,6 +26,35 @@ const userSchema = new Schema({
     },
     birthDay: {
         type: Date,
+    },
+    profileImage: {
+        type: Buffer,
+        required: true,
+    },
+    address: {
+        streetName: {
+            type: String,
+            required: true,
+        },
+        city: {
+            type: String,
+            required: true,
+        },
+        state: {
+            type: String,
+            required: true,
+        },
+        postalCode: {
+            type: String,
+            required: false,
+        },
+        buildingNumber: {
+            type: Number,
+        },
+    },
+    location: {
+        latitude: Number,
+        longitude: Number,
     },
     createdAt: {
         type: Date,

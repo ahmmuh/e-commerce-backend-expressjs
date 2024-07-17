@@ -9,8 +9,8 @@ import {
   searchVehiclesByName,
   updateVehicle
 } from "../../controllers/vehicles/vehicleController.js";
-import { vehicleValidationRules } from "../../validations/vehicle-validator";
-import { validationAction } from "../../validations/validationAction";
+import { vehicleValidationRules } from "../../validations/vehicle-validator.js";
+import { validationAction } from "../../validations/validationAction.js";
 
 const router = express.Router();
 

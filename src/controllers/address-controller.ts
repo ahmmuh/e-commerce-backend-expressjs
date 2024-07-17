@@ -1,6 +1,6 @@
-import { Address } from "../models/Address";
+import { Address } from "../models/Address.js";
 import {Request, Response} from "express";
-import { User } from "../models/users/user";
+import { User } from "../models/users/user.js";
 
 export const getAddressList = async (req: Request, res: Response) => {
   try {
@@ -35,8 +35,8 @@ export  const addNewAddress = async (req:Request,res:Response) => {
     user
 
   } = req.body
-  const addressOwner = await User.findById(req.params.id)
-  if (!addressOwner) throw new Error("The owner of this address was not found")
+ /* const addressOwner = await User.findById(req.params.id)
+  if (!addressOwner) throw new Error("The owner of this address was not found")*/
   try {
   const newAddress = new Address({
     streetName,
@@ -46,6 +46,7 @@ export  const addNewAddress = async (req:Request,res:Response) => {
     buildingNumber,
     user
   })
+    console.log("NEW Address", newAddress)
     await newAddress.save();
   res.status(201).json({ message: "One address has been created" });
 

@@ -14,7 +14,7 @@ import { Electronic } from "../../models/electronics/Electronic.js";
 import { Error } from "mongoose";
 export const createCloth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, description, images, price, user, category, thumbnail } = req.body;
+        const { name, description, color, size, images, price, thumbnail, user, category, address, location, } = req.body;
         const foundedCategory = yield Category.findById(req.body.category);
         const ownerUser = yield User.findById(req.body.user);
         if (!foundedCategory || !ownerUser)
@@ -22,11 +22,15 @@ export const createCloth = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const newCloth = new Cloth({
             name,
             description,
+            color,
+            size,
             images,
             price,
+            thumbnail,
             user,
             category,
-            thumbnail,
+            address,
+            location,
         });
         yield newCloth.save();
         console.log("The new Cloth is here ", newCloth);
@@ -68,7 +72,7 @@ export const deleteCloth = (req, res) => __awaiter(void 0, void 0, void 0, funct
     try {
         const cloth = yield Cloth.findByIdAndDelete(req.params.id);
         if (!cloth)
-            throw new Error("No Cloth found");
+            throw new Error("The product was not found");
         res.status(200).send("deleted");
     }
     catch (error) {
@@ -117,7 +121,7 @@ export const searchClothesByHighPrice = (req, res) => __awaiter(void 0, void 0, 
 export const searchClothesByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const clothes = yield Electronic.find();
-        const lowPriceClothes = clothes.filter((cloth) => cloth.price < 200);
+        const lowPriceClothes = clothes.filter((cloth) => cloth.price <= 200);
         console.log("Low prices: ", lowPriceClothes);
         res.status(200).json(lowPriceClothes);
     }

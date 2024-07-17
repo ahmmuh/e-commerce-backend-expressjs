@@ -1,5 +1,4 @@
 import {body} from "express-validator";
-// Validering för ditt schemae
 export const boatValidationRules = [
   body("name")
     .notEmpty().withMessage("Namnet får inte vara tomt.")

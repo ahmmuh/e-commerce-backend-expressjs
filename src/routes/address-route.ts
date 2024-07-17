@@ -2,9 +2,9 @@ import express from "express";
 import {
   addNewAddress, deleteAddress, getAddress, getAddressByCity,
   getAddressList, updateAddress
-} from "../controllers/address-controller";
-import { addressValidationRules } from "../validations/address-validator";
-import { validationAction } from "../validations/validationAction";
+} from "../controllers/address-controller.js";
+import { addressValidationRules } from "../validations/address-validator.js";
+import { validationAction } from "../validations/validationAction.js";
 
 
 const router = express.Router();
@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/addresses", getAddressList)
 router.get("/addresses/:id", getAddress)
 router.get("/addresses/city", getAddressByCity)
-router.get("/addresses",addressValidationRules,
+router.post("/addresses",addressValidationRules,
   validationAction ,addNewAddress)
 
 router.put("/addresses/:id", addressValidationRules,validationAction ,updateAddress)

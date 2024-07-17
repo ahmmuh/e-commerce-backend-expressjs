@@ -35,9 +35,25 @@ profileImage: {
     required: true,
 },
   address: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Address",
-    required: true,
+    streetName: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    state: {
+      type: String,
+      required: true,
+    },
+    postalCode: {
+      type: String,
+      required: false,
+    },
+    buildingNumber: {
+      type: Number,
+    },
   },
 
   location: {

@@ -11,7 +11,7 @@ import furnitureRouet from "./routes/furniture/furniture-route.js";
 import { getConnection } from "./database/dbConnection/dbConnection.js";
 import bookRoute from "./routes/hobbies/book-route.js";
 import boatRoute from "./routes/hobbies/boat-route.js";
-import addressRoute from "./routes/address-route"
+import addressRoute from "./routes/address-route.js"
 import bodyParser from "body-parser";
 const PORT = 5000;
 const app = express();

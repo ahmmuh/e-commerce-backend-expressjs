@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Category } from "../../category_subcategory/model/Category.js";
 import { Boat } from "../../models/hobbies/Boat.js";
 import { User } from "../../models/users/user.js";
-import fs from "fs";
 export const getBoats = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const boats = yield Boat.find();
@@ -29,7 +28,7 @@ export const getBoat = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 export const createBoat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, model, description, price, user, category, image } = req.body;
+        const { name, model, description, price, user, category, thumbnail, images } = req.body;
         const foundedCategory = yield Category.findById(req.body.category);
         const ownerUser = yield User.findById(req.body.user);
         if (!foundedCategory || ownerUser)
@@ -41,10 +40,8 @@ export const createBoat = (req, res) => __awaiter(void 0, void 0, void 0, functi
             price,
             category,
             user,
-            image: {
-                data: fs.readFileSync(image),
-                contentType: "image/png",
-            },
+            thumbnail,
+            images
         });
         yield newBoat.save();
         console.log("The new Boat is here ", newBoat);

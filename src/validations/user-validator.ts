@@ -1,5 +1,4 @@
 import {body} from "express-validator";
-// Validering för ditt schema
 export const userValidationRules = [
   body("firstName")
     .notEmpty().withMessage("Förnamn får inte vara tomt.")

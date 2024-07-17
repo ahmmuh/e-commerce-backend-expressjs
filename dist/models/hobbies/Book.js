@@ -4,25 +4,53 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    name: {
+    bookName: {
         type: String,
         required: true,
     },
     isbn: {
-        type: Number,
+        type: String,
         required: true,
     },
     description: {
         type: String,
         required: true,
     },
-    image: {
-        data: Buffer,
-        contentType: String,
-    },
     price: {
         type: Number,
         required: true,
+    },
+    color: {
+        type: String,
+        required: true,
+    },
+    thumbnail: {
+        type: Buffer,
+        required: true,
+    },
+    pageNumber: {
+        type: Number,
+        required: true,
+    },
+    images: [{ type: String, required: true }],
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true,
+    },
+    address: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+        required: true,
+    },
+    location: {
+        latitude: Number,
+        longitude: Number,
     },
 });
 export const Book = mongoose.model("Book", bookSchema);

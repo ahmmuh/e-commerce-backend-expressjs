@@ -34,7 +34,7 @@ export const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
     res.status(400).json({ success: false, message: "User Not found" });
 });
 export const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { firstName, lastName, email, password, phoneNumber, birthDay } = req.body;
+    const { firstName, lastName, email, password, phoneNumber, profileImage, address: { streetName, city, state, postalCode, buildingNumber }, location, birthDay, } = req.body;
     try {
         const newUser = new User({
             firstName,
@@ -42,6 +42,15 @@ export const createUser = (req, res) => __awaiter(void 0, void 0, void 0, functi
             email,
             password,
             phoneNumber,
+            profileImage,
+            address: {
+                streetName,
+                city,
+                state,
+                postalCode,
+                buildingNumber
+            },
+            location,
             birthDay,
         });
         const user = yield newUser.save();

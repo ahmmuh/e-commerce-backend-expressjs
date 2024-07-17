@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Category } from "../../category_subcategory/model/Category.js";
 import { Book } from "../../models/hobbies/Book.js";
 import { User } from "../../models/users/user.js";
-import fs from "fs";
 export const getBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const books = yield Book.find();
@@ -29,20 +28,25 @@ export const getBook = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 export const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { author, name, isbn, description, image, price, thumbnailImage, model } = req.body;
+        const { author, bookName, isbn, description, price, color, thumbnail, pageNumber, images, user, category, address, location, } = req.body;
         const foundedCategory = yield Category.findById(req.body.category);
         const ownerUser = yield User.findById(req.body.user);
         if (!foundedCategory || ownerUser)
             return res.status(400).json({ error: "Invalid category or user" });
         const newBook = new Book({
-            name,
-            model,
+            author,
+            bookName,
+            isbn,
             description,
             price,
-            image: {
-                data: fs.readFileSync(thumbnailImage),
-                contentType: "image/png",
-            },
+            color,
+            thumbnail,
+            pageNumber,
+            images,
+            user,
+            category,
+            address,
+            location,
         });
         yield newBook.save();
         console.log("The new Book is here ", newBook);
@@ -117,7 +121,7 @@ export const searchBooksByHighPrice = (req, res) => __awaiter(void 0, void 0, vo
 export const searchBooksByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const books = yield Book.find();
-        const lowPriceBooks = books.filter((book) => book.price < 200);
+        const lowPriceBooks = books.filter((book) => book.price <= 200);
         console.log("Low prices: ", lowPriceBooks);
         res.status(200).json(lowPriceBooks);
     }

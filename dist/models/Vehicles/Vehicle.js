@@ -9,16 +9,6 @@ const vehicleSchema = new Schema({
         type: String,
         required: true,
     },
-    category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        required: true,
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
     color: {
         type: String,
         required: true,
@@ -39,9 +29,29 @@ const vehicleSchema = new Schema({
         type: Number,
         required: true,
     },
+    images: [{ type: String, required: true }],
     price: {
         type: Number,
         required: true,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true,
+    },
+    address: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+        required: true,
+    },
+    location: {
+        latitude: Number,
+        longitude: Number,
     },
 });
 export const Vehicle = mongoose.model("vehicles", vehicleSchema);

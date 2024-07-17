@@ -38,7 +38,13 @@ export const createUser = async (req:Request, res:Response) => {
     password,
     phoneNumber,
     profileImage,
-    address,
+      address:{
+        streetName,
+        city,
+        state,
+        postalCode,
+        buildingNumber
+      },
     location,
     birthDay,
   } =
@@ -51,7 +57,13 @@ export const createUser = async (req:Request, res:Response) => {
       password,
       phoneNumber,
       profileImage,
-      address,
+      address:{
+        streetName,
+        city,
+        state,
+        postalCode,
+        buildingNumber
+      },
       location,
       birthDay,
     });

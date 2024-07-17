@@ -14,8 +14,6 @@ import { Error } from "mongoose";
 export const getElectronics = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const electronics = yield Electronic.find();
-        //electronics = [...electronics].map((electronic) =>
-        // Buffer.from(electronic.thumbnailImage))
         res.status(200).send(electronics);
     }
     catch (error) {
@@ -30,7 +28,7 @@ export const getElectronic = (req, res) => __awaiter(void 0, void 0, void 0, fun
     res.status(400).json({ success: false, message: "Electronic Not found" });
 });
 export const createElectronic = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, description, price, user, category, batteryHealth, screenSize, images, colors, condition, receipt, ownershipDuration, location, thumbnailImage } = req.body;
+    const { name, description, price, user, category, batteryHealth, screenSize, images, color, condition, receipt, ownershipDuration, location, thumbnailImage } = req.body;
     const foundedCategory = yield Category.findById(req.body.category);
     const ownerUser = yield User.findById(req.body.user);
     if (!foundedCategory || !ownerUser)
@@ -47,14 +45,14 @@ export const createElectronic = (req, res) => __awaiter(void 0, void 0, void 0, 
             batteryHealth,
             screenSize,
             images,
-            colors,
+            color,
             condition,
             receipt,
             ownershipDuration,
             location,
             thumbnailImage
         });
-        newElectronic = yield newElectronic.save();
+        yield newElectronic.save();
         console.log("The new Electronic is here ", newElectronic);
         res.status(201).json({ message: "One Electronic has been created" });
     }
@@ -113,7 +111,7 @@ export const searchByHighPrice = (req, res) => __awaiter(void 0, void 0, void 0,
 export const searchByLowPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const electronics = yield Electronic.find();
-        const lowPriceElectronics = electronics.filter((electronic) => electronic.price < 200);
+        const lowPriceElectronics = electronics.filter((electronic) => electronic.price <= 200);
         console.log("Low prices: ", lowPriceElectronics);
         res.status(200).json(lowPriceElectronics);
     }

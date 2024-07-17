@@ -1,5 +1,4 @@
 import { body } from "express-validator";
-// Validering för ditt schema
 export const vehicleValidationRules = [
     body("manufacturer")
         .notEmpty().withMessage("Tillverkare får inte vara tomt.")
