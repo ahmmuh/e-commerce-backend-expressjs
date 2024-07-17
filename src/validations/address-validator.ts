@@ -1,21 +1,22 @@
-import { body } from "express-validator";
+const { body } = require("express-validator");
 
-// Validering för ditt schema
 export const addressValidationRules = [
   body("streetName")
-    .notEmpty().withMessage("Gatunamn får inte vara tomt och måste vara en sträng.")
-    .isString().withMessage("Gatunamn måste vara en sträng."),
+    .notEmpty().withMessage("Gatunamn får inte vara tomt och måste vara en sträng."),
 
   body("city")
-    .notEmpty().withMessage("Stad får inte vara tomt och måste vara en sträng.")
-    .isString().withMessage("Stad måste vara en sträng."),
+    .notEmpty().withMessage("Stad får inte vara tomt och måste vara en sträng."),
 
   body("state")
-    .notEmpty().withMessage("Stat får inte vara tomt och måste vara en sträng.")
-    .isString().withMessage("Stat måste vara en sträng."),
+    .notEmpty().withMessage("Stat får inte vara tomt och måste vara en sträng."),
 
   body("postalCode")
-    .notEmpty().withMessage("Postnummer får inte vara tomt och måste vara en sträng.")
-    .isString().withMessage("Postnummer måste vara en sträng."),
+    .optional().isString().withMessage("Postnummer måste vara en sträng."),
+
+  body("buildingNumber")
+    .optional().isNumeric().withMessage("Byggnadsnummer måste vara ett nummer."),
+
+  body("user")
+    .notEmpty().withMessage("Användar-ID får inte vara tomt och måste vara en sträng."),
 ];
 
