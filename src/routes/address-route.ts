@@ -2,7 +2,7 @@ import express from "express";
 import {
   addNewAddress, deleteAddress, getAddress, getAddressByCity,
   getAddressList, updateAddress
-} from "../controllers/address-controller.js";
+} from "../api/address-controller";
 import { addressValidationRules } from "../validations/address-validator.js";
 import { validationAction } from "../validations/validationAction.js";
 

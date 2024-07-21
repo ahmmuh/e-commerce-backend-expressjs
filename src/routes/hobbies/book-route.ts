@@ -5,10 +5,10 @@ import {
   getBook,
   getBooks, getBooksWithPagination, searchBooksByLowPrice, searchBooksByName,
   updateBook
-} from "../../controllers/hobbies/bookController.js";
+} from "../../controllers/web/hobbies/bookController.js";
 import {
   searchBoatsByHighPrice
-} from "../../controllers/hobbies/boatController.js";
+} from "../../controllers/web/hobbies/boatController.js";
 import { bookValidationRules } from "../../validations/book-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
 

@@ -6,7 +6,7 @@ import {
   getCategory,
   updateCategory,
 
-} from "../../controllers/category/categoryController.js";
+} from "../../controllers/web/category/categoryController.js";
 import {
   categoryValidationRules
 } from "../../validations/category-validator.js";

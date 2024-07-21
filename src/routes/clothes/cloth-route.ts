@@ -5,7 +5,7 @@ import {
   getCloth,
   getClothes,
   updateCloth,
-} from "../../controllers/clothes/clothController.js";
+} from "../../controllers/web/clothes/clothController.js";
 import { upload } from "../../filemanagement/image.js";
 import multer from "multer";
 import { clothValidationRules } from "../../validations/cloth-validator.js";
@@ -15,6 +15,15 @@ const router = express.Router();
 
 const uploadFile = multer({ dest: "uploads/" });
 
+
+//Web endpoints
+
+
+
+
+
+
+//Api endpoints
 router.get("/clothes", getClothes);
 router.get("/clothes/:id", getCloth);
 router.post("/clothes", uploadFile.single("thumbnail"),

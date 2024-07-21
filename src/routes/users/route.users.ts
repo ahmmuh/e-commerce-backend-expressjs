@@ -6,7 +6,7 @@ import {
   getUser,
   getUsers, getUsersWithPagination, searchUsersByName,
   updateUser
-} from "../../controllers/users/user-controller.js";
+} from "../../controllers/web/users/user-controller.js";
 import { userValidationRules } from "../../validations/user-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
 

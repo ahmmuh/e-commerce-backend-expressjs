@@ -8,7 +8,7 @@ import {
   searchVehiclesByLowPrice,
   searchVehiclesByName,
   updateVehicle
-} from "../../controllers/vehicles/vehicleController.js";
+} from "../../controllers/web/vehicles/vehicleController.js";
 import { vehicleValidationRules } from "../../validations/vehicle-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
 

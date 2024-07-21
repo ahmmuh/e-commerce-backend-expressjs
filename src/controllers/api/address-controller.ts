@@ -1,6 +1,6 @@
-import { Address } from "../models/Address.js";
+import { Address } from "../models/Address";
 import {Request, Response} from "express";
-import { User } from "../models/users/user.js";
+import { User } from "../models/users/user";
 
 export const getAddressList = async (req: Request, res: Response) => {
   try {

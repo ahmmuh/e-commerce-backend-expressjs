@@ -5,12 +5,12 @@ import {
   getHouse,
   getHouses, searchHousesByHighPrice,
   updateHouse
-} from "../../controllers/houses/houseController.js";
+} from "../../controllers/web/houses/houseController.js";
 import {
   getHobbiesWithPagination,
   searchHobbiesByLowPrice,
   searchHobbiesByName
-} from "../../controllers/hobbies/hobbyController.js";
+} from "../../controllers/web/hobbies/hobbyController.js";
 import {
   housePropertyValidationRules
 } from "../../validations/house-validator.js";

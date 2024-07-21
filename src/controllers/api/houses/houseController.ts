@@ -1,5 +1,5 @@
-import { Category } from "../../category_subcategory/model/Category.js";
-import { House } from "../../models/houses/HouseModel.js";
+import { Category } from "../../../category_subcategory/model/Category";
+import { House } from "../../../models/houses/HouseModel";
 import { User } from "../../models/users/user.js";
 import { Request, Response } from "express";
 

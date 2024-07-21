@@ -9,7 +9,7 @@ import {
   searchBoatsByLowPrice,
   searchBoatsByName,
   updateBoat
-} from "../../controllers/hobbies/boatController.js";
+} from "../../controllers/web/hobbies/boatController.js";
 import { boatValidationRules } from "../../validations/boat-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
 

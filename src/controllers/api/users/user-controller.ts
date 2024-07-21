@@ -1,5 +1,5 @@
-import { User } from "../../models/users/user.js";
-import { House } from "../../models/houses/HouseModel.js";
+import { User } from "../../../models/users/user";
+import { House } from "../../../models/houses/HouseModel";
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 

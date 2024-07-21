@@ -14,7 +14,7 @@ import {
   getElectronicsWithMediumScreen,
   getElectronicsWithSmallScreen,
   getElectronicsWithPagination
-} from "../../controllers/electronics/electronicController.js";
+} from "../../controllers/web/electronics/electronicController.js";
 import {
   electronicValidationRules
 } from "../../validations/electronic-validator.js";

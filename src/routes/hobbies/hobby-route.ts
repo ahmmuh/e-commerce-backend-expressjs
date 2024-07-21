@@ -8,7 +8,7 @@ import {
   searchHobbiesByLowPrice,
   searchHobbiesByName,
   updateHobby
-} from "../../controllers/hobbies/hobbyController.js";
+} from "../../controllers/web/hobbies/hobbyController.js";
 import { hobbyValidationRules } from "../../validations/hobby-validator.js";
 import { validationAction } from "../../validations/validationAction.js";
 

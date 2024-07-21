@@ -1,4 +1,5 @@
 import express from "express";
+import {Request, Response} from "express";
 import cors from "cors";
 import userRoute from "./routes/users/route.users.js";
 import vehicleRouter from "./routes/vehicles/vehicle-route.js";
@@ -13,16 +14,21 @@ import bookRoute from "./routes/hobbies/book-route.js";
 import boatRoute from "./routes/hobbies/boat-route.js";
 import addressRoute from "./routes/address-route.js"
 import bodyParser from "body-parser";
+import path from "path";
 const PORT = 5000;
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.set("views engine", path.join(__dirname, "ejs"));
 const corsOptions = {
   origin: "http://localhost:3000/",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 //routes
+
+
 app.use("/api", userRoute);
 app.use("/api", hobbyRoute);
 app.use("/api", vehicleRouter);

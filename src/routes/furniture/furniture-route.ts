@@ -8,7 +8,7 @@ import {
   searchFurnituresByHighPrice,
   searchFurnituresByName,
   updateFurniture
-} from "../../controllers/furniture/furnitureController.js";
+} from "../../controllers/web/furniture/furnitureController.js";
 import {
   furnitureValidationRules
 } from "../../validations/furniture-validator.js";
